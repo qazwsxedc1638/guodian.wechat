@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyAccount.ConsMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyAccount.Cons">
+    <id column="CONS_ID" jdbcType="DECIMAL" property="consId" />
+    <result column="VAT_ID" jdbcType="DECIMAL" property="vatId" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="CONS_NO" jdbcType="VARCHAR" property="consNo" />
+    <result column="CONS_NAME" jdbcType="VARCHAR" property="consName" />
+    <result column="CUST_QUERY_NO" jdbcType="VARCHAR" property="custQueryNo" />
+    <result column="TMP_PAY_RELA_NO" jdbcType="VARCHAR" property="tmpPayRelaNo" />
+    <result column="ORGN_CONS_NO" jdbcType="VARCHAR" property="orgnConsNo" />
+    <result column="VOLT_CODE" jdbcType="VARCHAR" property="voltCode" />
+    <result column="ELEC_ADDR" jdbcType="VARCHAR" property="elecAddr" />
+    <result column="TRADE_CODE" jdbcType="VARCHAR" property="tradeCode" />
+    <result column="ELEC_TYPE_CODE" jdbcType="VARCHAR" property="elecTypeCode" />
+    <result column="CONTRACT_CAP" jdbcType="DECIMAL" property="contractCap" />
+    <result column="RUN_CAP" jdbcType="DECIMAL" property="runCap" />
+    <result column="SHIFT_NO" jdbcType="VARCHAR" property="shiftNo" />
+    <result column="LODE_ATTR_CODE" jdbcType="VARCHAR" property="lodeAttrCode" />
+    <result column="PS_VOLT" jdbcType="VARCHAR" property="psVolt" />
+    <result column="HEC_INDUSTRY_CODE" jdbcType="VARCHAR" property="hecIndustryCode" />
+    <result column="HOLIDAY" jdbcType="VARCHAR" property="holiday" />
+    <result column="BUILD_DATE" jdbcType="DATE" property="buildDate" />
+    <result column="PS_DATE" jdbcType="DATE" property="psDate" />
+    <result column="CANCEL_DATE" jdbcType="DATE" property="cancelDate" />
+    <result column="DUE_DATE" jdbcType="DATE" property="dueDate" />
+    <result column="NOTIFY_MODE" jdbcType="VARCHAR" property="notifyMode" />
+    <result column="SETTLE_MODE" jdbcType="VARCHAR" property="settleMode" />
+    <result column="STATUS_CODE" jdbcType="VARCHAR" property="statusCode" />
+    <result column="ORG_NO" jdbcType="VARCHAR" property="orgNo" />
+    <result column="RRIO_CODE" jdbcType="VARCHAR" property="rrioCode" />
+    <result column="CHK_CYCLE" jdbcType="DECIMAL" property="chkCycle" />
+    <result column="LAST_CHK_DATE" jdbcType="DATE" property="lastChkDate" />
+    <result column="CHECKER_NO" jdbcType="VARCHAR" property="checkerNo" />
+    <result column="POWEROFF_CODE" jdbcType="VARCHAR" property="poweroffCode" />
+    <result column="TRANSFER_CODE" jdbcType="VARCHAR" property="transferCode" />
+    <result column="MR_SECT_NO" jdbcType="VARCHAR" property="mrSectNo" />
+    <result column="NOTE_TYPE_CODE" jdbcType="VARCHAR" property="noteTypeCode" />
+    <result column="TMP_FLAG" jdbcType="VARCHAR" property="tmpFlag" />
+    <result column="TMP_DATE" jdbcType="DATE" property="tmpDate" />
+    <result column="CONS_SORT_CODE" jdbcType="VARCHAR" property="consSortCode" />
+    <result column="RURAL_CONS_CODE" jdbcType="VARCHAR" property="ruralConsCode" />
+    <result column="URBAN_RURAL_FLAG" jdbcType="VARCHAR" property="urbanRuralFlag" />
+    <result column="LOAD_FEATURE_CODE" jdbcType="VARCHAR" property="loadFeatureCode" />
+    <result column="SECURITY_CAP" jdbcType="DECIMAL" property="securityCap" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CONS_ID, VAT_ID, CUST_ID, CONS_NO, CONS_NAME, CUST_QUERY_NO, TMP_PAY_RELA_NO, ORGN_CONS_NO, 
+    VOLT_CODE, ELEC_ADDR, TRADE_CODE, ELEC_TYPE_CODE, CONTRACT_CAP, RUN_CAP, SHIFT_NO, 
+    LODE_ATTR_CODE, PS_VOLT, HEC_INDUSTRY_CODE, HOLIDAY, BUILD_DATE, PS_DATE, CANCEL_DATE, 
+    DUE_DATE, NOTIFY_MODE, SETTLE_MODE, STATUS_CODE, ORG_NO, RRIO_CODE, CHK_CYCLE, LAST_CHK_DATE, 
+    CHECKER_NO, POWEROFF_CODE, TRANSFER_CODE, MR_SECT_NO, NOTE_TYPE_CODE, TMP_FLAG, TMP_DATE, 
+    CONS_SORT_CODE, RURAL_CONS_CODE, URBAN_RURAL_FLAG, LOAD_FEATURE_CODE, SECURITY_CAP
+  </sql>
+   <select id="selectByConsNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    cons_name,elec_addr 
+    from YX_C_CONS
+    where CONS_NO = #{consNo,jdbcType=VARCHAR}
+  </select>
+   <select id="selectByConsNoA" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    cons_name,elec_addr,substr(cons.org_no,0,5) 
+    from YX_C_CONS
+    where CONS_NO = #{consNo,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from YX_C_CONS
+    where CONS_ID = #{consId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from YX_C_CONS
+    where CONS_ID = #{consId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyAccount.Cons">
+    insert into YX_C_CONS (CONS_ID, VAT_ID, CUST_ID, 
+      CONS_NO, CONS_NAME, CUST_QUERY_NO, 
+      TMP_PAY_RELA_NO, ORGN_CONS_NO, VOLT_CODE, 
+      ELEC_ADDR, TRADE_CODE, ELEC_TYPE_CODE, 
+      CONTRACT_CAP, RUN_CAP, SHIFT_NO, 
+      LODE_ATTR_CODE, PS_VOLT, HEC_INDUSTRY_CODE, 
+      HOLIDAY, BUILD_DATE, PS_DATE, 
+      CANCEL_DATE, DUE_DATE, NOTIFY_MODE, 
+      SETTLE_MODE, STATUS_CODE, ORG_NO, 
+      RRIO_CODE, CHK_CYCLE, LAST_CHK_DATE, 
+      CHECKER_NO, POWEROFF_CODE, TRANSFER_CODE, 
+      MR_SECT_NO, NOTE_TYPE_CODE, TMP_FLAG, 
+      TMP_DATE, CONS_SORT_CODE, RURAL_CONS_CODE, 
+      URBAN_RURAL_FLAG, LOAD_FEATURE_CODE, SECURITY_CAP
+      )
+    values (#{consId,jdbcType=DECIMAL}, #{vatId,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, 
+      #{consNo,jdbcType=VARCHAR}, #{consName,jdbcType=VARCHAR}, #{custQueryNo,jdbcType=VARCHAR}, 
+      #{tmpPayRelaNo,jdbcType=VARCHAR}, #{orgnConsNo,jdbcType=VARCHAR}, #{voltCode,jdbcType=VARCHAR}, 
+      #{elecAddr,jdbcType=VARCHAR}, #{tradeCode,jdbcType=VARCHAR}, #{elecTypeCode,jdbcType=VARCHAR}, 
+      #{contractCap,jdbcType=DECIMAL}, #{runCap,jdbcType=DECIMAL}, #{shiftNo,jdbcType=VARCHAR}, 
+      #{lodeAttrCode,jdbcType=VARCHAR}, #{psVolt,jdbcType=VARCHAR}, #{hecIndustryCode,jdbcType=VARCHAR}, 
+      #{holiday,jdbcType=VARCHAR}, #{buildDate,jdbcType=DATE}, #{psDate,jdbcType=DATE}, 
+      #{cancelDate,jdbcType=DATE}, #{dueDate,jdbcType=DATE}, #{notifyMode,jdbcType=VARCHAR}, 
+      #{settleMode,jdbcType=VARCHAR}, #{statusCode,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}, 
+      #{rrioCode,jdbcType=VARCHAR}, #{chkCycle,jdbcType=DECIMAL}, #{lastChkDate,jdbcType=DATE}, 
+      #{checkerNo,jdbcType=VARCHAR}, #{poweroffCode,jdbcType=VARCHAR}, #{transferCode,jdbcType=VARCHAR}, 
+      #{mrSectNo,jdbcType=VARCHAR}, #{noteTypeCode,jdbcType=VARCHAR}, #{tmpFlag,jdbcType=VARCHAR}, 
+      #{tmpDate,jdbcType=DATE}, #{consSortCode,jdbcType=VARCHAR}, #{ruralConsCode,jdbcType=VARCHAR}, 
+      #{urbanRuralFlag,jdbcType=VARCHAR}, #{loadFeatureCode,jdbcType=VARCHAR}, #{securityCap,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyAccount.Cons">
+    insert into YX_C_CONS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="consId != null">
+        CONS_ID,
+      </if>
+      <if test="vatId != null">
+        VAT_ID,
+      </if>
+      <if test="custId != null">
+        CUST_ID,
+      </if>
+      <if test="consNo != null">
+        CONS_NO,
+      </if>
+      <if test="consName != null">
+        CONS_NAME,
+      </if>
+      <if test="custQueryNo != null">
+        CUST_QUERY_NO,
+      </if>
+      <if test="tmpPayRelaNo != null">
+        TMP_PAY_RELA_NO,
+      </if>
+      <if test="orgnConsNo != null">
+        ORGN_CONS_NO,
+      </if>
+      <if test="voltCode != null">
+        VOLT_CODE,
+      </if>
+      <if test="elecAddr != null">
+        ELEC_ADDR,
+      </if>
+      <if test="tradeCode != null">
+        TRADE_CODE,
+      </if>
+      <if test="elecTypeCode != null">
+        ELEC_TYPE_CODE,
+      </if>
+      <if test="contractCap != null">
+        CONTRACT_CAP,
+      </if>
+      <if test="runCap != null">
+        RUN_CAP,
+      </if>
+      <if test="shiftNo != null">
+        SHIFT_NO,
+      </if>
+      <if test="lodeAttrCode != null">
+        LODE_ATTR_CODE,
+      </if>
+      <if test="psVolt != null">
+        PS_VOLT,
+      </if>
+      <if test="hecIndustryCode != null">
+        HEC_INDUSTRY_CODE,
+      </if>
+      <if test="holiday != null">
+        HOLIDAY,
+      </if>
+      <if test="buildDate != null">
+        BUILD_DATE,
+      </if>
+      <if test="psDate != null">
+        PS_DATE,
+      </if>
+      <if test="cancelDate != null">
+        CANCEL_DATE,
+      </if>
+      <if test="dueDate != null">
+        DUE_DATE,
+      </if>
+      <if test="notifyMode != null">
+        NOTIFY_MODE,
+      </if>
+      <if test="settleMode != null">
+        SETTLE_MODE,
+      </if>
+      <if test="statusCode != null">
+        STATUS_CODE,
+      </if>
+      <if test="orgNo != null">
+        ORG_NO,
+      </if>
+      <if test="rrioCode != null">
+        RRIO_CODE,
+      </if>
+      <if test="chkCycle != null">
+        CHK_CYCLE,
+      </if>
+      <if test="lastChkDate != null">
+        LAST_CHK_DATE,
+      </if>
+      <if test="checkerNo != null">
+        CHECKER_NO,
+      </if>
+      <if test="poweroffCode != null">
+        POWEROFF_CODE,
+      </if>
+      <if test="transferCode != null">
+        TRANSFER_CODE,
+      </if>
+      <if test="mrSectNo != null">
+        MR_SECT_NO,
+      </if>
+      <if test="noteTypeCode != null">
+        NOTE_TYPE_CODE,
+      </if>
+      <if test="tmpFlag != null">
+        TMP_FLAG,
+      </if>
+      <if test="tmpDate != null">
+        TMP_DATE,
+      </if>
+      <if test="consSortCode != null">
+        CONS_SORT_CODE,
+      </if>
+      <if test="ruralConsCode != null">
+        RURAL_CONS_CODE,
+      </if>
+      <if test="urbanRuralFlag != null">
+        URBAN_RURAL_FLAG,
+      </if>
+      <if test="loadFeatureCode != null">
+        LOAD_FEATURE_CODE,
+      </if>
+      <if test="securityCap != null">
+        SECURITY_CAP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="consId != null">
+        #{consId,jdbcType=DECIMAL},
+      </if>
+      <if test="vatId != null">
+        #{vatId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null">
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="consNo != null">
+        #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="consName != null">
+        #{consName,jdbcType=VARCHAR},
+      </if>
+      <if test="custQueryNo != null">
+        #{custQueryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpPayRelaNo != null">
+        #{tmpPayRelaNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgnConsNo != null">
+        #{orgnConsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="voltCode != null">
+        #{voltCode,jdbcType=VARCHAR},
+      </if>
+      <if test="elecAddr != null">
+        #{elecAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeCode != null">
+        #{tradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="elecTypeCode != null">
+        #{elecTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCap != null">
+        #{contractCap,jdbcType=DECIMAL},
+      </if>
+      <if test="runCap != null">
+        #{runCap,jdbcType=DECIMAL},
+      </if>
+      <if test="shiftNo != null">
+        #{shiftNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lodeAttrCode != null">
+        #{lodeAttrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="psVolt != null">
+        #{psVolt,jdbcType=VARCHAR},
+      </if>
+      <if test="hecIndustryCode != null">
+        #{hecIndustryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="holiday != null">
+        #{holiday,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDate != null">
+        #{buildDate,jdbcType=DATE},
+      </if>
+      <if test="psDate != null">
+        #{psDate,jdbcType=DATE},
+      </if>
+      <if test="cancelDate != null">
+        #{cancelDate,jdbcType=DATE},
+      </if>
+      <if test="dueDate != null">
+        #{dueDate,jdbcType=DATE},
+      </if>
+      <if test="notifyMode != null">
+        #{notifyMode,jdbcType=VARCHAR},
+      </if>
+      <if test="settleMode != null">
+        #{settleMode,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null">
+        #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null">
+        #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rrioCode != null">
+        #{rrioCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chkCycle != null">
+        #{chkCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="lastChkDate != null">
+        #{lastChkDate,jdbcType=DATE},
+      </if>
+      <if test="checkerNo != null">
+        #{checkerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="poweroffCode != null">
+        #{poweroffCode,jdbcType=VARCHAR},
+      </if>
+      <if test="transferCode != null">
+        #{transferCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mrSectNo != null">
+        #{mrSectNo,jdbcType=VARCHAR},
+      </if>
+      <if test="noteTypeCode != null">
+        #{noteTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpFlag != null">
+        #{tmpFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpDate != null">
+        #{tmpDate,jdbcType=DATE},
+      </if>
+      <if test="consSortCode != null">
+        #{consSortCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ruralConsCode != null">
+        #{ruralConsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="urbanRuralFlag != null">
+        #{urbanRuralFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="loadFeatureCode != null">
+        #{loadFeatureCode,jdbcType=VARCHAR},
+      </if>
+      <if test="securityCap != null">
+        #{securityCap,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyAccount.Cons">
+    update YX_C_CONS
+    <set>
+      <if test="vatId != null">
+        VAT_ID = #{vatId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null">
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="consNo != null">
+        CONS_NO = #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="consName != null">
+        CONS_NAME = #{consName,jdbcType=VARCHAR},
+      </if>
+      <if test="custQueryNo != null">
+        CUST_QUERY_NO = #{custQueryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpPayRelaNo != null">
+        TMP_PAY_RELA_NO = #{tmpPayRelaNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgnConsNo != null">
+        ORGN_CONS_NO = #{orgnConsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="voltCode != null">
+        VOLT_CODE = #{voltCode,jdbcType=VARCHAR},
+      </if>
+      <if test="elecAddr != null">
+        ELEC_ADDR = #{elecAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeCode != null">
+        TRADE_CODE = #{tradeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="elecTypeCode != null">
+        ELEC_TYPE_CODE = #{elecTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCap != null">
+        CONTRACT_CAP = #{contractCap,jdbcType=DECIMAL},
+      </if>
+      <if test="runCap != null">
+        RUN_CAP = #{runCap,jdbcType=DECIMAL},
+      </if>
+      <if test="shiftNo != null">
+        SHIFT_NO = #{shiftNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lodeAttrCode != null">
+        LODE_ATTR_CODE = #{lodeAttrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="psVolt != null">
+        PS_VOLT = #{psVolt,jdbcType=VARCHAR},
+      </if>
+      <if test="hecIndustryCode != null">
+        HEC_INDUSTRY_CODE = #{hecIndustryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="holiday != null">
+        HOLIDAY = #{holiday,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDate != null">
+        BUILD_DATE = #{buildDate,jdbcType=DATE},
+      </if>
+      <if test="psDate != null">
+        PS_DATE = #{psDate,jdbcType=DATE},
+      </if>
+      <if test="cancelDate != null">
+        CANCEL_DATE = #{cancelDate,jdbcType=DATE},
+      </if>
+      <if test="dueDate != null">
+        DUE_DATE = #{dueDate,jdbcType=DATE},
+      </if>
+      <if test="notifyMode != null">
+        NOTIFY_MODE = #{notifyMode,jdbcType=VARCHAR},
+      </if>
+      <if test="settleMode != null">
+        SETTLE_MODE = #{settleMode,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null">
+        STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null">
+        ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rrioCode != null">
+        RRIO_CODE = #{rrioCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chkCycle != null">
+        CHK_CYCLE = #{chkCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="lastChkDate != null">
+        LAST_CHK_DATE = #{lastChkDate,jdbcType=DATE},
+      </if>
+      <if test="checkerNo != null">
+        CHECKER_NO = #{checkerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="poweroffCode != null">
+        POWEROFF_CODE = #{poweroffCode,jdbcType=VARCHAR},
+      </if>
+      <if test="transferCode != null">
+        TRANSFER_CODE = #{transferCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mrSectNo != null">
+        MR_SECT_NO = #{mrSectNo,jdbcType=VARCHAR},
+      </if>
+      <if test="noteTypeCode != null">
+        NOTE_TYPE_CODE = #{noteTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpFlag != null">
+        TMP_FLAG = #{tmpFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpDate != null">
+        TMP_DATE = #{tmpDate,jdbcType=DATE},
+      </if>
+      <if test="consSortCode != null">
+        CONS_SORT_CODE = #{consSortCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ruralConsCode != null">
+        RURAL_CONS_CODE = #{ruralConsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="urbanRuralFlag != null">
+        URBAN_RURAL_FLAG = #{urbanRuralFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="loadFeatureCode != null">
+        LOAD_FEATURE_CODE = #{loadFeatureCode,jdbcType=VARCHAR},
+      </if>
+      <if test="securityCap != null">
+        SECURITY_CAP = #{securityCap,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CONS_ID = #{consId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyAccount.Cons">
+    update YX_C_CONS
+    set VAT_ID = #{vatId,jdbcType=DECIMAL},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      CONS_NO = #{consNo,jdbcType=VARCHAR},
+      CONS_NAME = #{consName,jdbcType=VARCHAR},
+      CUST_QUERY_NO = #{custQueryNo,jdbcType=VARCHAR},
+      TMP_PAY_RELA_NO = #{tmpPayRelaNo,jdbcType=VARCHAR},
+      ORGN_CONS_NO = #{orgnConsNo,jdbcType=VARCHAR},
+      VOLT_CODE = #{voltCode,jdbcType=VARCHAR},
+      ELEC_ADDR = #{elecAddr,jdbcType=VARCHAR},
+      TRADE_CODE = #{tradeCode,jdbcType=VARCHAR},
+      ELEC_TYPE_CODE = #{elecTypeCode,jdbcType=VARCHAR},
+      CONTRACT_CAP = #{contractCap,jdbcType=DECIMAL},
+      RUN_CAP = #{runCap,jdbcType=DECIMAL},
+      SHIFT_NO = #{shiftNo,jdbcType=VARCHAR},
+      LODE_ATTR_CODE = #{lodeAttrCode,jdbcType=VARCHAR},
+      PS_VOLT = #{psVolt,jdbcType=VARCHAR},
+      HEC_INDUSTRY_CODE = #{hecIndustryCode,jdbcType=VARCHAR},
+      HOLIDAY = #{holiday,jdbcType=VARCHAR},
+      BUILD_DATE = #{buildDate,jdbcType=DATE},
+      PS_DATE = #{psDate,jdbcType=DATE},
+      CANCEL_DATE = #{cancelDate,jdbcType=DATE},
+      DUE_DATE = #{dueDate,jdbcType=DATE},
+      NOTIFY_MODE = #{notifyMode,jdbcType=VARCHAR},
+      SETTLE_MODE = #{settleMode,jdbcType=VARCHAR},
+      STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      RRIO_CODE = #{rrioCode,jdbcType=VARCHAR},
+      CHK_CYCLE = #{chkCycle,jdbcType=DECIMAL},
+      LAST_CHK_DATE = #{lastChkDate,jdbcType=DATE},
+      CHECKER_NO = #{checkerNo,jdbcType=VARCHAR},
+      POWEROFF_CODE = #{poweroffCode,jdbcType=VARCHAR},
+      TRANSFER_CODE = #{transferCode,jdbcType=VARCHAR},
+      MR_SECT_NO = #{mrSectNo,jdbcType=VARCHAR},
+      NOTE_TYPE_CODE = #{noteTypeCode,jdbcType=VARCHAR},
+      TMP_FLAG = #{tmpFlag,jdbcType=VARCHAR},
+      TMP_DATE = #{tmpDate,jdbcType=DATE},
+      CONS_SORT_CODE = #{consSortCode,jdbcType=VARCHAR},
+      RURAL_CONS_CODE = #{ruralConsCode,jdbcType=VARCHAR},
+      URBAN_RURAL_FLAG = #{urbanRuralFlag,jdbcType=VARCHAR},
+      LOAD_FEATURE_CODE = #{loadFeatureCode,jdbcType=VARCHAR},
+      SECURITY_CAP = #{securityCap,jdbcType=DECIMAL}
+    where CONS_ID = #{consId,jdbcType=DECIMAL}
+  </update>
+</mapper>
