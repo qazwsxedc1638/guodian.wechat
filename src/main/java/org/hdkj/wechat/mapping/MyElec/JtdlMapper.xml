@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyElec.JtdlMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyElec.Jtdl">
+    <id column="ACCU_PQ_ID" jdbcType="DECIMAL" property="accuPqId" />
+    <result column="CONS_ID" jdbcType="DECIMAL" property="consId" />
+    <result column="CONS_NO" jdbcType="VARCHAR" property="consNo" />
+    <result column="PRC_ID" jdbcType="DECIMAL" property="prcId" />
+    <result column="YM" jdbcType="VARCHAR" property="ym" />
+    <result column="ORG_NO" jdbcType="VARCHAR" property="orgNo" />
+    <result column="YEAR" jdbcType="VARCHAR" property="year" />
+    <result column="BEGIN_YMD" jdbcType="VARCHAR" property="beginYmd" />
+    <result column="END_YMD" jdbcType="VARCHAR" property="endYmd" />
+    <result column="ACCU_PQ" jdbcType="DECIMAL" property="accuPq" />
+    <result column="SETTLE_PQ" jdbcType="DECIMAL" property="settlePq" />
+    <result column="CALC_ID" jdbcType="DECIMAL" property="calcId" />
+    <result column="MONTHS_IDX" jdbcType="DECIMAL" property="monthsIdx" />
+    <result column="IF_CLEARING" jdbcType="VARCHAR" property="ifClearing" />
+    <result column="LEV_ONE_PQ_REMAIN" jdbcType="DECIMAL" property="levOnePqRemain" />
+    <result column="LEV_TWO_PQ_REMAIN" jdbcType="DECIMAL" property="levTwoPqRemain" />
+    <result column="LEV_ONE_PQ" jdbcType="DECIMAL" property="levOnePq" />
+    <result column="LEV_TWO_PQ" jdbcType="DECIMAL" property="levTwoPq" />
+    <result column="LEV_ONE_PQ_SUM" jdbcType="DECIMAL" property="levOnePqSum" />
+    <result column="LEV_TWO_PQ_SUM" jdbcType="DECIMAL" property="levTwoPqSum" />
+    <result column="LEV_THREE_PQ_SUM" jdbcType="DECIMAL" property="levThreePqSum" />
+    <result column="APP_CODE" jdbcType="VARCHAR" property="appCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ACCU_PQ_ID, CONS_ID, CONS_NO, PRC_ID, YM, ORG_NO, YEAR, BEGIN_YMD, END_YMD, ACCU_PQ, 
+    SETTLE_PQ, CALC_ID, MONTHS_IDX, IF_CLEARING, LEV_ONE_PQ_REMAIN, LEV_TWO_PQ_REMAIN, 
+    LEV_ONE_PQ, LEV_TWO_PQ, LEV_ONE_PQ_SUM, LEV_TWO_PQ_SUM, LEV_THREE_PQ_SUM, APP_CODE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from YX_E_CONS_ACCU_PQ
+    where ACCU_PQ_ID = #{accuPqId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByJtdlConsNOAndDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+     ACCU_PQ,LEV_ONE_PQ_SUM ,LEV_ONE_PQ_REMAIN,LEV_TWO_PQ_SUM ,LEV_TWO_PQ_REMAIN ,LEV_THREE_PQ_SUM 
+    from  
+     yx_arc_e_cons_accu_pq where YM = #{time,jdbcType=VARCHAR} and  CONS_NO =#{consNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from YX_E_CONS_ACCU_PQ
+    where ACCU_PQ_ID = #{accuPqId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyElec.Jtdl">
+    insert into YX_E_CONS_ACCU_PQ (ACCU_PQ_ID, CONS_ID, CONS_NO, 
+      PRC_ID, YM, ORG_NO, YEAR, 
+      BEGIN_YMD, END_YMD, ACCU_PQ, 
+      SETTLE_PQ, CALC_ID, MONTHS_IDX, 
+      IF_CLEARING, LEV_ONE_PQ_REMAIN, LEV_TWO_PQ_REMAIN, 
+      LEV_ONE_PQ, LEV_TWO_PQ, LEV_ONE_PQ_SUM, 
+      LEV_TWO_PQ_SUM, LEV_THREE_PQ_SUM, APP_CODE
+      )
+    values (#{accuPqId,jdbcType=DECIMAL}, #{consId,jdbcType=DECIMAL}, #{consNo,jdbcType=VARCHAR}, 
+      #{prcId,jdbcType=DECIMAL}, #{ym,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, 
+      #{beginYmd,jdbcType=VARCHAR}, #{endYmd,jdbcType=VARCHAR}, #{accuPq,jdbcType=DECIMAL}, 
+      #{settlePq,jdbcType=DECIMAL}, #{calcId,jdbcType=DECIMAL}, #{monthsIdx,jdbcType=DECIMAL}, 
+      #{ifClearing,jdbcType=VARCHAR}, #{levOnePqRemain,jdbcType=DECIMAL}, #{levTwoPqRemain,jdbcType=DECIMAL}, 
+      #{levOnePq,jdbcType=DECIMAL}, #{levTwoPq,jdbcType=DECIMAL}, #{levOnePqSum,jdbcType=DECIMAL}, 
+      #{levTwoPqSum,jdbcType=DECIMAL}, #{levThreePqSum,jdbcType=DECIMAL}, #{appCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyElec.Jtdl">
+    insert into YX_E_CONS_ACCU_PQ
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="accuPqId != null">
+        ACCU_PQ_ID,
+      </if>
+      <if test="consId != null">
+        CONS_ID,
+      </if>
+      <if test="consNo != null">
+        CONS_NO,
+      </if>
+      <if test="prcId != null">
+        PRC_ID,
+      </if>
+      <if test="ym != null">
+        YM,
+      </if>
+      <if test="orgNo != null">
+        ORG_NO,
+      </if>
+      <if test="year != null">
+        YEAR,
+      </if>
+      <if test="beginYmd != null">
+        BEGIN_YMD,
+      </if>
+      <if test="endYmd != null">
+        END_YMD,
+      </if>
+      <if test="accuPq != null">
+        ACCU_PQ,
+      </if>
+      <if test="settlePq != null">
+        SETTLE_PQ,
+      </if>
+      <if test="calcId != null">
+        CALC_ID,
+      </if>
+      <if test="monthsIdx != null">
+        MONTHS_IDX,
+      </if>
+      <if test="ifClearing != null">
+        IF_CLEARING,
+      </if>
+      <if test="levOnePqRemain != null">
+        LEV_ONE_PQ_REMAIN,
+      </if>
+      <if test="levTwoPqRemain != null">
+        LEV_TWO_PQ_REMAIN,
+      </if>
+      <if test="levOnePq != null">
+        LEV_ONE_PQ,
+      </if>
+      <if test="levTwoPq != null">
+        LEV_TWO_PQ,
+      </if>
+      <if test="levOnePqSum != null">
+        LEV_ONE_PQ_SUM,
+      </if>
+      <if test="levTwoPqSum != null">
+        LEV_TWO_PQ_SUM,
+      </if>
+      <if test="levThreePqSum != null">
+        LEV_THREE_PQ_SUM,
+      </if>
+      <if test="appCode != null">
+        APP_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="accuPqId != null">
+        #{accuPqId,jdbcType=DECIMAL},
+      </if>
+      <if test="consId != null">
+        #{consId,jdbcType=DECIMAL},
+      </if>
+      <if test="consNo != null">
+        #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prcId != null">
+        #{prcId,jdbcType=DECIMAL},
+      </if>
+      <if test="ym != null">
+        #{ym,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null">
+        #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="beginYmd != null">
+        #{beginYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="endYmd != null">
+        #{endYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="accuPq != null">
+        #{accuPq,jdbcType=DECIMAL},
+      </if>
+      <if test="settlePq != null">
+        #{settlePq,jdbcType=DECIMAL},
+      </if>
+      <if test="calcId != null">
+        #{calcId,jdbcType=DECIMAL},
+      </if>
+      <if test="monthsIdx != null">
+        #{monthsIdx,jdbcType=DECIMAL},
+      </if>
+      <if test="ifClearing != null">
+        #{ifClearing,jdbcType=VARCHAR},
+      </if>
+      <if test="levOnePqRemain != null">
+        #{levOnePqRemain,jdbcType=DECIMAL},
+      </if>
+      <if test="levTwoPqRemain != null">
+        #{levTwoPqRemain,jdbcType=DECIMAL},
+      </if>
+      <if test="levOnePq != null">
+        #{levOnePq,jdbcType=DECIMAL},
+      </if>
+      <if test="levTwoPq != null">
+        #{levTwoPq,jdbcType=DECIMAL},
+      </if>
+      <if test="levOnePqSum != null">
+        #{levOnePqSum,jdbcType=DECIMAL},
+      </if>
+      <if test="levTwoPqSum != null">
+        #{levTwoPqSum,jdbcType=DECIMAL},
+      </if>
+      <if test="levThreePqSum != null">
+        #{levThreePqSum,jdbcType=DECIMAL},
+      </if>
+      <if test="appCode != null">
+        #{appCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyElec.Jtdl">
+    update YX_E_CONS_ACCU_PQ
+    <set>
+      <if test="consId != null">
+        CONS_ID = #{consId,jdbcType=DECIMAL},
+      </if>
+      <if test="consNo != null">
+        CONS_NO = #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prcId != null">
+        PRC_ID = #{prcId,jdbcType=DECIMAL},
+      </if>
+      <if test="ym != null">
+        YM = #{ym,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null">
+        ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        YEAR = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="beginYmd != null">
+        BEGIN_YMD = #{beginYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="endYmd != null">
+        END_YMD = #{endYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="accuPq != null">
+        ACCU_PQ = #{accuPq,jdbcType=DECIMAL},
+      </if>
+      <if test="settlePq != null">
+        SETTLE_PQ = #{settlePq,jdbcType=DECIMAL},
+      </if>
+      <if test="calcId != null">
+        CALC_ID = #{calcId,jdbcType=DECIMAL},
+      </if>
+      <if test="monthsIdx != null">
+        MONTHS_IDX = #{monthsIdx,jdbcType=DECIMAL},
+      </if>
+      <if test="ifClearing != null">
+        IF_CLEARING = #{ifClearing,jdbcType=VARCHAR},
+      </if>
+      <if test="levOnePqRemain != null">
+        LEV_ONE_PQ_REMAIN = #{levOnePqRemain,jdbcType=DECIMAL},
+      </if>
+      <if test="levTwoPqRemain != null">
+        LEV_TWO_PQ_REMAIN = #{levTwoPqRemain,jdbcType=DECIMAL},
+      </if>
+      <if test="levOnePq != null">
+        LEV_ONE_PQ = #{levOnePq,jdbcType=DECIMAL},
+      </if>
+      <if test="levTwoPq != null">
+        LEV_TWO_PQ = #{levTwoPq,jdbcType=DECIMAL},
+      </if>
+      <if test="levOnePqSum != null">
+        LEV_ONE_PQ_SUM = #{levOnePqSum,jdbcType=DECIMAL},
+      </if>
+      <if test="levTwoPqSum != null">
+        LEV_TWO_PQ_SUM = #{levTwoPqSum,jdbcType=DECIMAL},
+      </if>
+      <if test="levThreePqSum != null">
+        LEV_THREE_PQ_SUM = #{levThreePqSum,jdbcType=DECIMAL},
+      </if>
+      <if test="appCode != null">
+        APP_CODE = #{appCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ACCU_PQ_ID = #{accuPqId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyElec.Jtdl">
+    update YX_E_CONS_ACCU_PQ
+    set CONS_ID = #{consId,jdbcType=DECIMAL},
+      CONS_NO = #{consNo,jdbcType=VARCHAR},
+      PRC_ID = #{prcId,jdbcType=DECIMAL},
+      YM = #{ym,jdbcType=VARCHAR},
+      ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      YEAR = #{year,jdbcType=VARCHAR},
+      BEGIN_YMD = #{beginYmd,jdbcType=VARCHAR},
+      END_YMD = #{endYmd,jdbcType=VARCHAR},
+      ACCU_PQ = #{accuPq,jdbcType=DECIMAL},
+      SETTLE_PQ = #{settlePq,jdbcType=DECIMAL},
+      CALC_ID = #{calcId,jdbcType=DECIMAL},
+      MONTHS_IDX = #{monthsIdx,jdbcType=DECIMAL},
+      IF_CLEARING = #{ifClearing,jdbcType=VARCHAR},
+      LEV_ONE_PQ_REMAIN = #{levOnePqRemain,jdbcType=DECIMAL},
+      LEV_TWO_PQ_REMAIN = #{levTwoPqRemain,jdbcType=DECIMAL},
+      LEV_ONE_PQ = #{levOnePq,jdbcType=DECIMAL},
+      LEV_TWO_PQ = #{levTwoPq,jdbcType=DECIMAL},
+      LEV_ONE_PQ_SUM = #{levOnePqSum,jdbcType=DECIMAL},
+      LEV_TWO_PQ_SUM = #{levTwoPqSum,jdbcType=DECIMAL},
+      LEV_THREE_PQ_SUM = #{levThreePqSum,jdbcType=DECIMAL},
+      APP_CODE = #{appCode,jdbcType=VARCHAR}
+    where ACCU_PQ_ID = #{accuPqId,jdbcType=DECIMAL}
+  </update>
+</mapper>

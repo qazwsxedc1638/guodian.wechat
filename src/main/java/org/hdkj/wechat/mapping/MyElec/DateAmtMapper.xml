@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyElec.DateAmtMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyElec.DateAmt">
+    <id column="QUANTITY_ID" jdbcType="VARCHAR" property="quantityId" />
+    <result column="CONS_NO" jdbcType="VARCHAR" property="consNo" />
+    <result column="QUANTITY" jdbcType="DECIMAL" property="quantity" />
+    <result column="QUANTITY_DATE" jdbcType="DATE" property="quantityDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    QUANTITY_ID, CONS_NO, QUANTITY, QUANTITY_DATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_QUANTITY_DAY
+    where QUANTITY_ID = #{quantityId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByConsNoAndDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+	  SELECT
+	  <include refid="Base_Column_List" />
+	  FROM wx_quantity_day t 
+	  where  t.CONS_NO=#{consNo,jdbcType=VARCHAR} and 
+      t.QUANTITY_DATE &lt; to_date(#{dates,jdbcType=VARCHAR},'yyyy-mm-dd') and t.QUANTITY_DATE &gt; to_date(#{dates,jdbcType=VARCHAR},'yyyy-mm-dd')-7 order by t.quantity_date desc
+  </select>
+  <select id="selectByTotal" parameterType="java.lang.String" resultType="java.lang.Integer">
+      SELECT
+      sum(t.QUANTITY)
+      FROM wx_quantity_day t 
+      where  t.CONS_NO=#{consNo,jdbcType=VARCHAR} and 
+      t.QUANTITY_DATE &lt; to_date(#{dates,jdbcType=VARCHAR},'yyyy-mm-dd') and t.QUANTITY_DATE &gt; to_date(#{dates,jdbcType=VARCHAR},'yyyy-mm-dd')-7
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from WX_QUANTITY_DAY
+    where QUANTITY_ID = #{quantityId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyElec.DateAmt">
+    insert into WX_QUANTITY_DAY (QUANTITY_ID, CONS_NO, QUANTITY, 
+      QUANTITY_DATE)
+    values (#{quantityId,jdbcType=VARCHAR}, #{consNo,jdbcType=VARCHAR}, #{quantity,jdbcType=DECIMAL}, 
+      #{quantityDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyElec.DateAmt">
+    insert into WX_QUANTITY_DAY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="quantityId != null">
+        QUANTITY_ID,
+      </if>
+      <if test="consNo != null">
+        CONS_NO,
+      </if>
+      <if test="quantity != null">
+        QUANTITY,
+      </if>
+      <if test="quantityDate != null">
+        QUANTITY_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="quantityId != null">
+        #{quantityId,jdbcType=VARCHAR},
+      </if>
+      <if test="consNo != null">
+        #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="quantityDate != null">
+        #{quantityDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyElec.DateAmt">
+    update WX_QUANTITY_DAY
+    <set>
+      <if test="consNo != null">
+        CONS_NO = #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        QUANTITY = #{quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="quantityDate != null">
+        QUANTITY_DATE = #{quantityDate,jdbcType=DATE},
+      </if>
+    </set>
+    where QUANTITY_ID = #{quantityId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyElec.DateAmt">
+    update WX_QUANTITY_DAY
+    set CONS_NO = #{consNo,jdbcType=VARCHAR},
+      QUANTITY = #{quantity,jdbcType=DECIMAL},
+      QUANTITY_DATE = #{quantityDate,jdbcType=DATE}
+    where QUANTITY_ID = #{quantityId,jdbcType=VARCHAR}
+  </update>
+</mapper>
