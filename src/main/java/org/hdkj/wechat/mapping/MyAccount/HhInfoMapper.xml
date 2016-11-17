@@ -18,6 +18,22 @@
   <sql id="Base_Column_List">
     ID, HH, HM, WX, STATE, BAND_TIME, CONS_TYPE, ORG_CODE, ADDR, MSG, WX_CHECK, BIND_STATUS
   </sql>
+  <insert id="insertHh" parameterType="org.hdkj.wechat.bean.MyAccount.HhInfo">
+    insert into WX_HH (ID, HH, HM, WX, 
+      STATE, BAND_TIME,ORG_CODE, ADDR,BIND_STATUS)
+    values (#{id,jdbcType=VARCHAR}, #{hh,jdbcType=VARCHAR}, #{hm,jdbcType=VARCHAR}, #{wx,jdbcType=VARCHAR}, 
+      &apos;0&apos;, sysdate, #{orgCode,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR},  #{bindStatus,jdbcType=VARCHAR})
+  </insert>
+  <update id="bindHh" parameterType="java.lang.String">
+    update
+    wx_hh
+    set
+    BIND_STATUS = #{bindstatus,jdbcType=VARCHAR},
+    STATE =  #{state,jdbcType=VARCHAR}
+    where WX = #{wx,jdbcType=VARCHAR}
+    and HH = #{hh,jdbcType=VARCHAR}
+  </update>
   <select id="countByWxAndHh" parameterType="java.lang.String" resultType="java.lang.Integer">
     select 
     count(*)

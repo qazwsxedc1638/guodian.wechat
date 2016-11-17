@@ -41,4 +41,12 @@ public class HhInfoService {
 	public Integer countByWxAndHh(String wx,String hh,String bindstatus){
 		return hhInfoDao.countByWxAndHh(wx, hh, bindstatus);
 	}
+	
+	public Integer bindHh(String bindstatus,String state,String wx,String hh){
+		return hhInfoDao.bindHh(bindstatus, state, wx, hh);
+	}
+	
+	public Integer insertHh(HhInfo record){
+		return hhInfoDao.insertHh(record);
+	}
 }

@@ -31,4 +31,8 @@ public interface HhInfoMapper {
     Integer releaseDefaultHhByWx(@Param("wx") String wx,@Param("bindstatus")String bindstatus);
     
     Integer countByWxAndHh(@Param("wx") String wx,@Param("hh") String hh,@Param("bindstatus")String bindstatus);
+    
+    Integer bindHh(@Param("bindstatus")String bindstatus,@Param("state")String state,@Param("wx") String wx,@Param("hh") String hh);
+    
+    Integer insertHh(HhInfo record);
 }

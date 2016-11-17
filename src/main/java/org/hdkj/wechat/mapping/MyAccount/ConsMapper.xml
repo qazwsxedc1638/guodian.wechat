@@ -55,13 +55,13 @@
   </sql>
    <select id="selectByConsNo" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
-    cons_name,elec_addr 
+    CONS_NAME,ELEC_ADDR 
     from YX_C_CONS
     where CONS_NO = #{consNo,jdbcType=VARCHAR}
   </select>
    <select id="selectByConsNoA" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
-    cons_name,elec_addr,substr(cons.org_no,0,5) 
+    CONS_NAME,ELEC_ADDR,ORG_NO  
     from YX_C_CONS
     where CONS_NO = #{consNo,jdbcType=VARCHAR}
   </select>

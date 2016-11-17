@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.hdkj.wechat.bean.MyAccount.HhInfo;
 import org.hdkj.wechat.service.MyAccount.HhInfoService;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,7 @@ public class HhInfoRestController {
 	@Resource
 	private HhInfoService hhInfoService;
 	
-	@ApiOperation(value = "获取用户信息", notes = "根据用户微信用户id获取用户") 
+	@ApiOperation(value = "获取用户信息", notes = "根据用户微信id获取用户") 
 	@RequestMapping(value = "/hhInfo/{wx}", method = RequestMethod.GET) 
 	public List<HhInfo> getByWxInfo(@PathVariable String wx){
 		List<HhInfo> hhInfoList = hhInfoService.getByWx(wx);
@@ -47,8 +48,15 @@ public class HhInfoRestController {
 		return count;
 	}
 	
+	@ApiOperation(value = "设置默认户号",notes = "根据用户id设置默认户号")
+	@RequestMapping(value = "/setDefaultHh/{id}/{bindstatus}",method = RequestMethod.PUT)
+	public Integer setDefaultHh(@PathVariable String id,@PathVariable String bindstatus){
+		Integer count = hhInfoService.bindDefaultHhById(id, bindstatus);
+		return count;
+	}
+	
 	@ApiOperation(value = "修改默认户号",notes = "根据用户id和微信号修改默认户号")
-	@RequestMapping(value = "modifyDefalutHh/{id}/{wx}/{bindstatus}",method = RequestMethod.PUT)
+	@RequestMapping(value = "/modifyDefaultHh/{id}/{wx}/{bindstatus}",method = RequestMethod.PUT)
 	public Integer modifyDefaultHh(@PathVariable String id,@PathVariable String wx,@PathVariable String bindstatus){
 		Integer count = hhInfoService.bindDefaultHhById(id, bindstatus);
 		Integer count1 = hhInfoService.releaseDefaultHhByWx(wx, bindstatus);
@@ -56,8 +64,20 @@ public class HhInfoRestController {
 	}
 	
 	@ApiOperation(value = "获取绑定用户信息数量",notes = "根据用户微信号,户号和绑定状态获取绑定用户信息数量")
-	@RequestMapping(value = "countHhByWxAndHh/{wx}/{hh}/{bindstatus}",method = RequestMethod.GET)
+	@RequestMapping(value = "/countHhByWxAndHh/{wx}/{hh}/{bindstatus}",method = RequestMethod.GET)
 	public Integer countByWxAndHh(@PathVariable String wx,@PathVariable String hh,@PathVariable String bindstatus){
 		return hhInfoService.countByWxAndHh(wx, hh, bindstatus);
+	}
+	
+	@ApiOperation(value = "设置用户绑定状态",notes = "根据用户微信号,户号设置用户绑定状态")
+	@RequestMapping(value = "/bindHh/{bindstatus}/{state}/{wx}/{hh}",method = RequestMethod.PUT)
+	public Integer bindHh(@PathVariable String bindstatus,@PathVariable String state,@PathVariable String wx,@PathVariable String hh){
+		return hhInfoService.bindHh(bindstatus, state, wx, hh);
+	}
+	
+	@ApiOperation(value = "新增用户",notes = "根据用户信息新增用户")
+	@RequestMapping(value = "/insertHh",method = RequestMethod.POST)
+	public Integer insertHh(@RequestBody HhInfo hhInfo){
+		return hhInfoService.insertHh(hhInfo);
 	}
 }
