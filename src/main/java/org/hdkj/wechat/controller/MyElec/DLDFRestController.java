@@ -22,6 +22,7 @@ public class DLDFRestController {
 	@Resource
 	private DLDFService dldfService;
 	
+	
 	@ApiOperation(value = "获取电量电费", notes = "根据户号和查询时间")  
 	@RequestMapping(value = "/cons/{consNo}/{rcvblYm}", method = RequestMethod.GET) 
 	public List<DLDF> getDLDFbyConsnoAndDate(@PathVariable String consNo,@PathVariable String rcvblYm){
