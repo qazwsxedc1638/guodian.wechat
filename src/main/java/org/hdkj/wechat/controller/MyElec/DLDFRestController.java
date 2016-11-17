@@ -2,7 +2,6 @@ package org.hdkj.wechat.controller.MyElec;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -22,14 +21,6 @@ public class DLDFRestController {
 
 	@Resource
 	private DLDFService dldfService;
-	
-	@ApiOperation(value = "测试用", notes = "根据id获取电量电费")  
-	@RequestMapping(value = "/{rcvblAmtId}", method = RequestMethod.GET) 
-	public DLDF getDLDFbyId(@PathVariable Long rcvblAmtId){
-		
-		DLDF dldf = this.dldfService.getDLDFbyId(rcvblAmtId);
-		return dldf;
-	}
 	
 	@ApiOperation(value = "获取电量电费", notes = "根据户号和查询时间")  
 	@RequestMapping(value = "/cons/{consNo}/{rcvblYm}", method = RequestMethod.GET) 

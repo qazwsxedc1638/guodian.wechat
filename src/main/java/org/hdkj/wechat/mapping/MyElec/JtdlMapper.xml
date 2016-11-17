@@ -37,10 +37,11 @@
     where ACCU_PQ_ID = #{accuPqId,jdbcType=DECIMAL}
   </select>
   <select id="selectByJtdlConsNOAndDate" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-     ACCU_PQ,LEV_ONE_PQ_SUM ,LEV_ONE_PQ_REMAIN,LEV_TWO_PQ_SUM ,LEV_TWO_PQ_REMAIN ,LEV_THREE_PQ_SUM 
+    select
+     <include refid="Base_Column_List" />
+     <!-- ACCU_PQ,LEV_ONE_PQ_SUM ,LEV_ONE_PQ_REMAIN,LEV_TWO_PQ_SUM ,LEV_TWO_PQ_REMAIN ,LEV_THREE_PQ_SUM -->
     from  
-     yx_arc_e_cons_accu_pq where YM = #{time,jdbcType=VARCHAR} and  CONS_NO =#{consNo,jdbcType=VARCHAR}
+      YX_E_CONS_ACCU_PQ where YM = #{time,jdbcType=VARCHAR} and  CONS_NO =#{consNo,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from YX_E_CONS_ACCU_PQ

@@ -28,10 +28,15 @@
       SELECT
       sum(t.QUANTITY)
       FROM wx_quantity_day t 
-      where  t.CONS_NO=#{consNo,jdbcType=VARCHAR} and 
+      WHERE  t.CONS_NO=#{consNo,jdbcType=VARCHAR} and 
       t.QUANTITY_DATE &lt; to_date(#{dates,jdbcType=VARCHAR},'yyyy-mm-dd') and t.QUANTITY_DATE &gt; to_date(#{dates,jdbcType=VARCHAR},'yyyy-mm-dd')-7
   </select>
-  
+  <select id="selectByDateMonth" parameterType="java.lang.String" resultMap="BaseResultMap">
+      SELECT 
+     <include refid="Base_Column_List" />
+      FROM wx_quantity_day t 
+      WHERE t.CONS_NO=#{consNo,jdbcType=VARCHAR} and t.QUANTITY_DATE &gt;= sysdate-31 and t.QUANTITY_DATE &lt;= sysdate-1 order by t.quantity_date asc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from WX_QUANTITY_DAY
     where QUANTITY_ID = #{quantityId,jdbcType=VARCHAR}

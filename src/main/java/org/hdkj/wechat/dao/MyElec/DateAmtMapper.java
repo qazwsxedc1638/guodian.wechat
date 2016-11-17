@@ -21,4 +21,6 @@ public interface DateAmtMapper {
     List<DateAmt> selectByConsNoAndDate(@Param ("consNo")String consNo,@Param("dates") String dates);
     
     int selectByTotal (@Param ("consNo")String consNo,@Param("dates") String dates);
+    
+    List<DateAmt> selectByDateMonth (String consNo);
 }
