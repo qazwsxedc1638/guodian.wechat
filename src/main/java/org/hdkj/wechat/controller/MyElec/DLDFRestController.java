@@ -26,7 +26,10 @@ public class DLDFRestController {
 	@RequestMapping(value = "/cons/{consNo}/{rcvblYm}", method = RequestMethod.GET) 
 	public List<DLDF> getDLDFbyConsnoAndDate(@PathVariable String consNo,@PathVariable String rcvblYm){
 		List<DLDF> dldf_list=this.dldfService.getDLDFbyConsnoAndDate(consNo, rcvblYm);
-		return dldf_list;
+		if(dldf_list !=null && dldf_list.size()>0){
+			return dldf_list;
+		}
+		return null;
 	}
 	
 	@ApiOperation(value = "获取当前余额", notes = "根据用户户号")  
