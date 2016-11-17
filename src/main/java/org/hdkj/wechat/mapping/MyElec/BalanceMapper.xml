@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyElec.BalanceMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyElec.Balance">
+    <id column="ACCT_ID" jdbcType="DECIMAL" property="acctId" />
+    <result column="CONS_NO" jdbcType="VARCHAR" property="consNo" />
+    <result column="PREPAY_BAL" jdbcType="DECIMAL" property="prepayBal" />
+    <result column="FREEZE_AMT" jdbcType="DECIMAL" property="freezeAmt" />
+    <result column="CHG_BAL" jdbcType="DECIMAL" property="chgBal" />
+    <result column="TRANSIT_NOTE_BAL" jdbcType="DECIMAL" property="transitNoteBal" />
+    <result column="ORG_NO" jdbcType="VARCHAR" property="orgNo" />
+    <result column="CARD_BAL" jdbcType="DECIMAL" property="cardBal" />
+    <result column="PREPAY_CODE" jdbcType="VARCHAR" property="prepayCode" />
+    <result column="CHECK_AMT" jdbcType="DECIMAL" property="checkAmt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ACCT_ID, CONS_NO, PREPAY_BAL, FREEZE_AMT, CHG_BAL, TRANSIT_NOTE_BAL, ORG_NO, CARD_BAL, 
+    PREPAY_CODE, CHECK_AMT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from YX_A_ACCT_BAL
+    where ACCT_ID = #{acctId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByPrimaryConsNo" parameterType="java.lang.String" resultType="java.math.BigDecimal">
+    select sum(PREPAY_BAL) from YX_A_ACCT_BAL where CONS_NO =#{consNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from YX_A_ACCT_BAL
+    where ACCT_ID = #{acctId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyElec.Balance">
+    insert into YX_A_ACCT_BAL (ACCT_ID, CONS_NO, PREPAY_BAL, 
+      FREEZE_AMT, CHG_BAL, TRANSIT_NOTE_BAL, 
+      ORG_NO, CARD_BAL, PREPAY_CODE, 
+      CHECK_AMT)
+    values (#{acctId,jdbcType=DECIMAL}, #{consNo,jdbcType=VARCHAR}, #{prepayBal,jdbcType=DECIMAL}, 
+      #{freezeAmt,jdbcType=DECIMAL}, #{chgBal,jdbcType=DECIMAL}, #{transitNoteBal,jdbcType=DECIMAL}, 
+      #{orgNo,jdbcType=VARCHAR}, #{cardBal,jdbcType=DECIMAL}, #{prepayCode,jdbcType=VARCHAR}, 
+      #{checkAmt,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyElec.Balance">
+    insert into YX_A_ACCT_BAL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="acctId != null">
+        ACCT_ID,
+      </if>
+      <if test="consNo != null">
+        CONS_NO,
+      </if>
+      <if test="prepayBal != null">
+        PREPAY_BAL,
+      </if>
+      <if test="freezeAmt != null">
+        FREEZE_AMT,
+      </if>
+      <if test="chgBal != null">
+        CHG_BAL,
+      </if>
+      <if test="transitNoteBal != null">
+        TRANSIT_NOTE_BAL,
+      </if>
+      <if test="orgNo != null">
+        ORG_NO,
+      </if>
+      <if test="cardBal != null">
+        CARD_BAL,
+      </if>
+      <if test="prepayCode != null">
+        PREPAY_CODE,
+      </if>
+      <if test="checkAmt != null">
+        CHECK_AMT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="acctId != null">
+        #{acctId,jdbcType=DECIMAL},
+      </if>
+      <if test="consNo != null">
+        #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayBal != null">
+        #{prepayBal,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeAmt != null">
+        #{freezeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="chgBal != null">
+        #{chgBal,jdbcType=DECIMAL},
+      </if>
+      <if test="transitNoteBal != null">
+        #{transitNoteBal,jdbcType=DECIMAL},
+      </if>
+      <if test="orgNo != null">
+        #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardBal != null">
+        #{cardBal,jdbcType=DECIMAL},
+      </if>
+      <if test="prepayCode != null">
+        #{prepayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkAmt != null">
+        #{checkAmt,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyElec.Balance">
+    update YX_A_ACCT_BAL
+    <set>
+      <if test="consNo != null">
+        CONS_NO = #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayBal != null">
+        PREPAY_BAL = #{prepayBal,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeAmt != null">
+        FREEZE_AMT = #{freezeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="chgBal != null">
+        CHG_BAL = #{chgBal,jdbcType=DECIMAL},
+      </if>
+      <if test="transitNoteBal != null">
+        TRANSIT_NOTE_BAL = #{transitNoteBal,jdbcType=DECIMAL},
+      </if>
+      <if test="orgNo != null">
+        ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardBal != null">
+        CARD_BAL = #{cardBal,jdbcType=DECIMAL},
+      </if>
+      <if test="prepayCode != null">
+        PREPAY_CODE = #{prepayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkAmt != null">
+        CHECK_AMT = #{checkAmt,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ACCT_ID = #{acctId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyElec.Balance">
+    update YX_A_ACCT_BAL
+    set CONS_NO = #{consNo,jdbcType=VARCHAR},
+      PREPAY_BAL = #{prepayBal,jdbcType=DECIMAL},
+      FREEZE_AMT = #{freezeAmt,jdbcType=DECIMAL},
+      CHG_BAL = #{chgBal,jdbcType=DECIMAL},
+      TRANSIT_NOTE_BAL = #{transitNoteBal,jdbcType=DECIMAL},
+      ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      CARD_BAL = #{cardBal,jdbcType=DECIMAL},
+      PREPAY_CODE = #{prepayCode,jdbcType=VARCHAR},
+      CHECK_AMT = #{checkAmt,jdbcType=DECIMAL}
+    where ACCT_ID = #{acctId,jdbcType=DECIMAL}
+  </update>
+</mapper>

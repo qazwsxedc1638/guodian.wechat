@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyElec.YDFXMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyElec.YDFX">
+    <result column="RCVBL_AMT_ID" jdbcType="DECIMAL" property="rcvblAmtId" />
+    <result column="CALC_ID" jdbcType="DECIMAL" property="calcId" />
+    <result column="AMT_TYPE" jdbcType="VARCHAR" property="amtType" />
+    <result column="RCVBL_YM" jdbcType="VARCHAR" property="rcvblYm" />
+    <result column="CONS_NO" jdbcType="VARCHAR" property="consNo" />
+    <result column="ORG_NO" jdbcType="VARCHAR" property="orgNo" />
+    <result column="PAY_MODE" jdbcType="VARCHAR" property="payMode" />
+    <result column="T_PQ" jdbcType="DECIMAL" property="tPq" />
+    <result column="RCVBL_AMT" jdbcType="DECIMAL" property="rcvblAmt" />
+    <result column="RCVED_AMT" jdbcType="DECIMAL" property="rcvedAmt" />
+    <result column="STATUS_CODE" jdbcType="VARCHAR" property="statusCode" />
+    <result column="SETTLE_FLAG" jdbcType="VARCHAR" property="settleFlag" />
+    <result column="PENALTY_BGN_DATE" jdbcType="DATE" property="penaltyBgnDate" />
+    <result column="RCVBL_INPRICE_AMT" jdbcType="DECIMAL" property="rcvblInpriceAmt" />
+    <result column="RCVBL_PL_AMT" jdbcType="DECIMAL" property="rcvblPlAmt" />
+    <result column="RCVED_IN_PRICE_AMT" jdbcType="DECIMAL" property="rcvedInPriceAmt" />
+    <result column="RCVED_PL_AMT" jdbcType="DECIMAL" property="rcvedPlAmt" />
+    <result column="RCVBL_PENALTY" jdbcType="DECIMAL" property="rcvblPenalty" />
+    <result column="RCVED_PENALTY" jdbcType="DECIMAL" property="rcvedPenalty" />
+    <result column="RISK_LEVEL_CODE" jdbcType="VARCHAR" property="riskLevelCode" />
+    <result column="RELEASE_DATE" jdbcType="VARCHAR" property="releaseDate" />
+    <result column="ACCT_NO" jdbcType="VARCHAR" property="acctNo" />
+    <result column="OWE_AMT" jdbcType="DECIMAL" property="oweAmt" />
+    <result column="OPR_ID" jdbcType="VARCHAR" property="oprId" />
+    <result column="REMIND_SECT_NO" jdbcType="VARCHAR" property="remindSectNo" />
+    <result column="SENT_NUM" jdbcType="DECIMAL" property="sentNum" />
+    <result column="LAST_CHG" jdbcType="DECIMAL" property="lastChg" />
+    <result column="THIS_CHG" jdbcType="DECIMAL" property="thisChg" />
+    <result column="RELATE_NO" jdbcType="DECIMAL" property="relateNo" />
+    <result column="MR_SECT_NO" jdbcType="VARCHAR" property="mrSectNo" />
+    <result column="BANK_CODE" jdbcType="VARCHAR" property="bankCode" />
+    <result column="BANK_ACCT" jdbcType="VARCHAR" property="bankAcct" />
+    <result column="PERIOD_NUM" jdbcType="DECIMAL" property="periodNum" />
+    <result column="SPLIT_NUM" jdbcType="DECIMAL" property="splitNum" />
+    <result column="SP_ID" jdbcType="DECIMAL" property="spId" />
+  </resultMap>
+  <select id="selectByYDFXconsNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+  select flow.T_PQ,flow.RCVBL_YM, '#99cc99'
+  from v_a_rcvbl_flow flow 
+  where 1=1 and flow.CONS_NO =#{consNo}  and  flow.RCVBL_YM  between #{startTime}  and  #{today_str} order by flow.RCVBL_YM asc
+  </select>
+  
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyElec.YDFX">
+    insert into V_A_RCVBL_FLOW (RCVBL_AMT_ID, CALC_ID, AMT_TYPE, 
+      RCVBL_YM, CONS_NO, ORG_NO, 
+      PAY_MODE, T_PQ, RCVBL_AMT, 
+      RCVED_AMT, STATUS_CODE, SETTLE_FLAG, 
+      PENALTY_BGN_DATE, RCVBL_INPRICE_AMT, RCVBL_PL_AMT, 
+      RCVED_IN_PRICE_AMT, RCVED_PL_AMT, RCVBL_PENALTY, 
+      RCVED_PENALTY, RISK_LEVEL_CODE, RELEASE_DATE, 
+      ACCT_NO, OWE_AMT, OPR_ID, 
+      REMIND_SECT_NO, SENT_NUM, LAST_CHG, 
+      THIS_CHG, RELATE_NO, MR_SECT_NO, 
+      BANK_CODE, BANK_ACCT, PERIOD_NUM, 
+      SPLIT_NUM, SP_ID)
+    values (#{rcvblAmtId,jdbcType=DECIMAL}, #{calcId,jdbcType=DECIMAL}, #{amtType,jdbcType=VARCHAR}, 
+      #{rcvblYm,jdbcType=VARCHAR}, #{consNo,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}, 
+      #{payMode,jdbcType=VARCHAR}, #{tPq,jdbcType=DECIMAL}, #{rcvblAmt,jdbcType=DECIMAL}, 
+      #{rcvedAmt,jdbcType=DECIMAL}, #{statusCode,jdbcType=VARCHAR}, #{settleFlag,jdbcType=VARCHAR}, 
+      #{penaltyBgnDate,jdbcType=DATE}, #{rcvblInpriceAmt,jdbcType=DECIMAL}, #{rcvblPlAmt,jdbcType=DECIMAL}, 
+      #{rcvedInPriceAmt,jdbcType=DECIMAL}, #{rcvedPlAmt,jdbcType=DECIMAL}, #{rcvblPenalty,jdbcType=DECIMAL}, 
+      #{rcvedPenalty,jdbcType=DECIMAL}, #{riskLevelCode,jdbcType=VARCHAR}, #{releaseDate,jdbcType=VARCHAR}, 
+      #{acctNo,jdbcType=VARCHAR}, #{oweAmt,jdbcType=DECIMAL}, #{oprId,jdbcType=VARCHAR}, 
+      #{remindSectNo,jdbcType=VARCHAR}, #{sentNum,jdbcType=DECIMAL}, #{lastChg,jdbcType=DECIMAL}, 
+      #{thisChg,jdbcType=DECIMAL}, #{relateNo,jdbcType=DECIMAL}, #{mrSectNo,jdbcType=VARCHAR}, 
+      #{bankCode,jdbcType=VARCHAR}, #{bankAcct,jdbcType=VARCHAR}, #{periodNum,jdbcType=DECIMAL}, 
+      #{splitNum,jdbcType=DECIMAL}, #{spId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyElec.YDFX">
+    insert into V_A_RCVBL_FLOW
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rcvblAmtId != null">
+        RCVBL_AMT_ID,
+      </if>
+      <if test="calcId != null">
+        CALC_ID,
+      </if>
+      <if test="amtType != null">
+        AMT_TYPE,
+      </if>
+      <if test="rcvblYm != null">
+        RCVBL_YM,
+      </if>
+      <if test="consNo != null">
+        CONS_NO,
+      </if>
+      <if test="orgNo != null">
+        ORG_NO,
+      </if>
+      <if test="payMode != null">
+        PAY_MODE,
+      </if>
+      <if test="tPq != null">
+        T_PQ,
+      </if>
+      <if test="rcvblAmt != null">
+        RCVBL_AMT,
+      </if>
+      <if test="rcvedAmt != null">
+        RCVED_AMT,
+      </if>
+      <if test="statusCode != null">
+        STATUS_CODE,
+      </if>
+      <if test="settleFlag != null">
+        SETTLE_FLAG,
+      </if>
+      <if test="penaltyBgnDate != null">
+        PENALTY_BGN_DATE,
+      </if>
+      <if test="rcvblInpriceAmt != null">
+        RCVBL_INPRICE_AMT,
+      </if>
+      <if test="rcvblPlAmt != null">
+        RCVBL_PL_AMT,
+      </if>
+      <if test="rcvedInPriceAmt != null">
+        RCVED_IN_PRICE_AMT,
+      </if>
+      <if test="rcvedPlAmt != null">
+        RCVED_PL_AMT,
+      </if>
+      <if test="rcvblPenalty != null">
+        RCVBL_PENALTY,
+      </if>
+      <if test="rcvedPenalty != null">
+        RCVED_PENALTY,
+      </if>
+      <if test="riskLevelCode != null">
+        RISK_LEVEL_CODE,
+      </if>
+      <if test="releaseDate != null">
+        RELEASE_DATE,
+      </if>
+      <if test="acctNo != null">
+        ACCT_NO,
+      </if>
+      <if test="oweAmt != null">
+        OWE_AMT,
+      </if>
+      <if test="oprId != null">
+        OPR_ID,
+      </if>
+      <if test="remindSectNo != null">
+        REMIND_SECT_NO,
+      </if>
+      <if test="sentNum != null">
+        SENT_NUM,
+      </if>
+      <if test="lastChg != null">
+        LAST_CHG,
+      </if>
+      <if test="thisChg != null">
+        THIS_CHG,
+      </if>
+      <if test="relateNo != null">
+        RELATE_NO,
+      </if>
+      <if test="mrSectNo != null">
+        MR_SECT_NO,
+      </if>
+      <if test="bankCode != null">
+        BANK_CODE,
+      </if>
+      <if test="bankAcct != null">
+        BANK_ACCT,
+      </if>
+      <if test="periodNum != null">
+        PERIOD_NUM,
+      </if>
+      <if test="splitNum != null">
+        SPLIT_NUM,
+      </if>
+      <if test="spId != null">
+        SP_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rcvblAmtId != null">
+        #{rcvblAmtId,jdbcType=DECIMAL},
+      </if>
+      <if test="calcId != null">
+        #{calcId,jdbcType=DECIMAL},
+      </if>
+      <if test="amtType != null">
+        #{amtType,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvblYm != null">
+        #{rcvblYm,jdbcType=VARCHAR},
+      </if>
+      <if test="consNo != null">
+        #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null">
+        #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payMode != null">
+        #{payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="tPq != null">
+        #{tPq,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvblAmt != null">
+        #{rcvblAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvedAmt != null">
+        #{rcvedAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="statusCode != null">
+        #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="settleFlag != null">
+        #{settleFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="penaltyBgnDate != null">
+        #{penaltyBgnDate,jdbcType=DATE},
+      </if>
+      <if test="rcvblInpriceAmt != null">
+        #{rcvblInpriceAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvblPlAmt != null">
+        #{rcvblPlAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvedInPriceAmt != null">
+        #{rcvedInPriceAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvedPlAmt != null">
+        #{rcvedPlAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvblPenalty != null">
+        #{rcvblPenalty,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvedPenalty != null">
+        #{rcvedPenalty,jdbcType=DECIMAL},
+      </if>
+      <if test="riskLevelCode != null">
+        #{riskLevelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseDate != null">
+        #{releaseDate,jdbcType=VARCHAR},
+      </if>
+      <if test="acctNo != null">
+        #{acctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="oweAmt != null">
+        #{oweAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="oprId != null">
+        #{oprId,jdbcType=VARCHAR},
+      </if>
+      <if test="remindSectNo != null">
+        #{remindSectNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sentNum != null">
+        #{sentNum,jdbcType=DECIMAL},
+      </if>
+      <if test="lastChg != null">
+        #{lastChg,jdbcType=DECIMAL},
+      </if>
+      <if test="thisChg != null">
+        #{thisChg,jdbcType=DECIMAL},
+      </if>
+      <if test="relateNo != null">
+        #{relateNo,jdbcType=DECIMAL},
+      </if>
+      <if test="mrSectNo != null">
+        #{mrSectNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null">
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAcct != null">
+        #{bankAcct,jdbcType=VARCHAR},
+      </if>
+      <if test="periodNum != null">
+        #{periodNum,jdbcType=DECIMAL},
+      </if>
+      <if test="splitNum != null">
+        #{splitNum,jdbcType=DECIMAL},
+      </if>
+      <if test="spId != null">
+        #{spId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>
