@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyAccount.HhInfoMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyAccount.HhInfo">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="HH" jdbcType="VARCHAR" property="hh" />
+    <result column="HM" jdbcType="VARCHAR" property="hm" />
+    <result column="WX" jdbcType="VARCHAR" property="wx" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="BAND_TIME" jdbcType="DATE" property="bandTime" />
+    <result column="CONS_TYPE" jdbcType="VARCHAR" property="consType" />
+    <result column="ORG_CODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ADDR" jdbcType="VARCHAR" property="addr" />
+    <result column="MSG" jdbcType="VARCHAR" property="msg" />
+    <result column="WX_CHECK" jdbcType="VARCHAR" property="wxCheck" />
+    <result column="BIND_STATUS" jdbcType="VARCHAR" property="bindStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, HH, HM, WX, STATE, BAND_TIME, CONS_TYPE, ORG_CODE, ADDR, MSG, WX_CHECK, BIND_STATUS
+  </sql>
+  <insert id="insertHh" parameterType="org.hdkj.wechat.bean.MyAccount.HhInfo">
+    insert into WX_HH (ID, HH, HM, WX, 
+      STATE, BAND_TIME,ORG_CODE, ADDR,BIND_STATUS)
+    values (#{id,jdbcType=VARCHAR}, #{hh,jdbcType=VARCHAR}, #{hm,jdbcType=VARCHAR}, #{wx,jdbcType=VARCHAR}, 
+      &apos;0&apos;, sysdate, #{orgCode,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR},  #{bindStatus,jdbcType=VARCHAR})
+  </insert>
+  <update id="bindHh" parameterType="java.lang.String">
+    update
+    wx_hh
+    set
+    BIND_STATUS = #{bindstatus,jdbcType=VARCHAR},
+    STATE =  #{state,jdbcType=VARCHAR}
+    where WX = #{wx,jdbcType=VARCHAR}
+    and HH = #{hh,jdbcType=VARCHAR}
+  </update>
+  <select id="countByWxAndHh" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select 
+    count(*)
+    from wx_hh
+    where WX = #{wx,jdbcType=VARCHAR}
+    and HH = #{hh,jdbcType=VARCHAR}
+    and BIND_STATUS = #{bindstatus,jdbcType=VARCHAR}
+  </select>
+  <update id="releaseDefaultHhByWx" parameterType="java.lang.String">
+    update 
+    wx_hh 
+    set 
+    state = '0' 
+    where WX = #{wx,jdbcType=VARCHAR} 
+    and BIND_STATUS = #{bindstatus,jdbcType=VARCHAR}
+  </update>
+  <update id="bindDefaultHhById" parameterType="java.lang.String">
+    update 
+    wx_hh 
+    set 
+    state = '1' 
+    where ID = #{id,jdbcType=VARCHAR} 
+    and BIND_STATUS = #{bindstatus,jdbcType=VARCHAR}
+  </update>
+  <select id="countByHh" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select 
+    count(*)
+    from wx_hh
+    where HH = #{hh,jdbcType=VARCHAR}
+    and BIND_STATUS = #{bindstatus,jdbcType=VARCHAR}
+  </select>
+  <select id="countByWx" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select 
+    count(*)
+    from wx_hh
+    where WX = #{wx,jdbcType=VARCHAR}
+    and BIND_STATUS = #{bindstatus,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByHh" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wx_hh
+    where HH = #{hh,jdbcType=VARCHAR}
+    and BIND_STATUS = #{bindstatus,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByWx" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wx_hh
+    where WX = #{wx,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_HH
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from WX_HH
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyAccount.HhInfo">
+    insert into WX_HH (ID, HH, HM, WX, 
+      STATE, BAND_TIME, CONS_TYPE, 
+      ORG_CODE, ADDR, MSG, 
+      WX_CHECK, BIND_STATUS)
+    values (#{id,jdbcType=VARCHAR}, #{hh,jdbcType=VARCHAR}, #{hm,jdbcType=VARCHAR}, #{wx,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{bandTime,jdbcType=DATE}, #{consType,jdbcType=VARCHAR}, 
+      #{orgCode,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{msg,jdbcType=VARCHAR}, 
+      #{wxCheck,jdbcType=VARCHAR}, #{bindStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyAccount.HhInfo">
+    insert into WX_HH
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="hh != null">
+        HH,
+      </if>
+      <if test="hm != null">
+        HM,
+      </if>
+      <if test="wx != null">
+        WX,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="bandTime != null">
+        BAND_TIME,
+      </if>
+      <if test="consType != null">
+        CONS_TYPE,
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE,
+      </if>
+      <if test="addr != null">
+        ADDR,
+      </if>
+      <if test="msg != null">
+        MSG,
+      </if>
+      <if test="wxCheck != null">
+        WX_CHECK,
+      </if>
+      <if test="bindStatus != null">
+        BIND_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="hh != null">
+        #{hh,jdbcType=VARCHAR},
+      </if>
+      <if test="hm != null">
+        #{hm,jdbcType=VARCHAR},
+      </if>
+      <if test="wx != null">
+        #{wx,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="bandTime != null">
+        #{bandTime,jdbcType=DATE},
+      </if>
+      <if test="consType != null">
+        #{consType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCheck != null">
+        #{wxCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="bindStatus != null">
+        #{bindStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyAccount.HhInfo">
+    update WX_HH
+    <set>
+      <if test="hh != null">
+        HH = #{hh,jdbcType=VARCHAR},
+      </if>
+      <if test="hm != null">
+        HM = #{hm,jdbcType=VARCHAR},
+      </if>
+      <if test="wx != null">
+        WX = #{wx,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="bandTime != null">
+        BAND_TIME = #{bandTime,jdbcType=DATE},
+      </if>
+      <if test="consType != null">
+        CONS_TYPE = #{consType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        ADDR = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        MSG = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="wxCheck != null">
+        WX_CHECK = #{wxCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="bindStatus != null">
+        BIND_STATUS = #{bindStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyAccount.HhInfo">
+    update WX_HH
+    set HH = #{hh,jdbcType=VARCHAR},
+      HM = #{hm,jdbcType=VARCHAR},
+      WX = #{wx,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      BAND_TIME = #{bandTime,jdbcType=DATE},
+      CONS_TYPE = #{consType,jdbcType=VARCHAR},
+      ORG_CODE = #{orgCode,jdbcType=VARCHAR},
+      ADDR = #{addr,jdbcType=VARCHAR},
+      MSG = #{msg,jdbcType=VARCHAR},
+      WX_CHECK = #{wxCheck,jdbcType=VARCHAR},
+      BIND_STATUS = #{bindStatus,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

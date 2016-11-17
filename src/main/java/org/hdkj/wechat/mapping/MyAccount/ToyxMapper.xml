@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyAccount.ToyxMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyAccount.Toyx">
+    <id column="DET_ID" jdbcType="VARCHAR" property="detId" />
+    <result column="CONS_NO" jdbcType="VARCHAR" property="consNo" />
+    <result column="CONS_NAME" jdbcType="VARCHAR" property="consName" />
+    <result column="WX" jdbcType="VARCHAR" property="wx" />
+    <result column="BIND_STATUS" jdbcType="VARCHAR" property="bindStatus" />
+    <result column="BAND_TIME" jdbcType="DATE" property="bandTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DET_ID, CONS_NO, CONS_NAME, WX, BIND_STATUS, BAND_TIME
+  </sql>
+  <insert id="insertHhToyx" parameterType="org.hdkj.wechat.bean.MyAccount.Toyx">
+    insert into WX_HH_TOYX (DET_ID, CONS_NO, WX, BIND_STATUS, BAND_TIME
+      )
+    values (#{detId,jdbcType=VARCHAR}, #{consNo,jdbcType=VARCHAR}, 
+      #{wx,jdbcType=VARCHAR}, #{bindStatus,jdbcType=VARCHAR}, sysdate
+      )
+  </insert>
+  <update id="bindHhToyx" parameterType="java.lang.String">
+    update
+    wx_hh_toyx
+    set
+    BIND_STATUS = #{bindstatus,jdbcType=VARCHAR},
+    BAND_TIME = sysdate
+    where WX = #{wx,jdbcType=VARCHAR}
+    and CONS_NO = #{consNo,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_HH_TOYX
+    where DET_ID = #{detId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from WX_HH_TOYX
+    where DET_ID = #{detId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyAccount.Toyx">
+    insert into WX_HH_TOYX (DET_ID, CONS_NO, CONS_NAME, 
+      WX, BIND_STATUS, BAND_TIME
+      )
+    values (#{detId,jdbcType=VARCHAR}, #{consNo,jdbcType=VARCHAR}, #{consName,jdbcType=VARCHAR}, 
+      #{wx,jdbcType=VARCHAR}, #{bindStatus,jdbcType=VARCHAR}, #{bandTime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyAccount.Toyx">
+    insert into WX_HH_TOYX
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="detId != null">
+        DET_ID,
+      </if>
+      <if test="consNo != null">
+        CONS_NO,
+      </if>
+      <if test="consName != null">
+        CONS_NAME,
+      </if>
+      <if test="wx != null">
+        WX,
+      </if>
+      <if test="bindStatus != null">
+        BIND_STATUS,
+      </if>
+      <if test="bandTime != null">
+        BAND_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="detId != null">
+        #{detId,jdbcType=VARCHAR},
+      </if>
+      <if test="consNo != null">
+        #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="consName != null">
+        #{consName,jdbcType=VARCHAR},
+      </if>
+      <if test="wx != null">
+        #{wx,jdbcType=VARCHAR},
+      </if>
+      <if test="bindStatus != null">
+        #{bindStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bandTime != null">
+        #{bandTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyAccount.Toyx">
+    update WX_HH_TOYX
+    <set>
+      <if test="consNo != null">
+        CONS_NO = #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="consName != null">
+        CONS_NAME = #{consName,jdbcType=VARCHAR},
+      </if>
+      <if test="wx != null">
+        WX = #{wx,jdbcType=VARCHAR},
+      </if>
+      <if test="bindStatus != null">
+        BIND_STATUS = #{bindStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bandTime != null">
+        BAND_TIME = #{bandTime,jdbcType=DATE},
+      </if>
+    </set>
+    where DET_ID = #{detId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyAccount.Toyx">
+    update WX_HH_TOYX
+    set CONS_NO = #{consNo,jdbcType=VARCHAR},
+      CONS_NAME = #{consName,jdbcType=VARCHAR},
+      WX = #{wx,jdbcType=VARCHAR},
+      BIND_STATUS = #{bindStatus,jdbcType=VARCHAR},
+      BAND_TIME = #{bandTime,jdbcType=DATE}
+    where DET_ID = #{detId,jdbcType=VARCHAR}
+  </update>
+</mapper>
