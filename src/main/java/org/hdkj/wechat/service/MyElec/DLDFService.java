@@ -2,7 +2,6 @@ package org.hdkj.wechat.service.MyElec;
 
 import java.math.BigDecimal;
 import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.hdkj.wechat.bean.MyElec.DLDF;
