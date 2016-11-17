@@ -12,25 +12,25 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!--数据库链接地址账号密码-->
-        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@192.168.3.128:1521:orcl" userId="wxpt" password="waima520">
+        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@192.168.3.127:1521:orcl" userId="wxpta" password="waima520">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="org.hdkj.wechat.bean.MyAccount" targetProject="wechat">
+        <javaModelGenerator targetPackage="org.hdkj.wechat.bean.MyElec" targetProject="wechat">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!--生成映射文件存放位置-->
-        <sqlMapGenerator targetPackage="org.hdkj.wechat.mapping.MyAccount" targetProject="wechat">
+        <sqlMapGenerator targetPackage="org.hdkj.wechat.mapping.MyElec" targetProject="wechat">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!--生成Dao类存放位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="org.hdkj.wechat.dao.MyAccount" targetProject="wechat">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="org.hdkj.wechat.dao.MyElec" targetProject="wechat">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->
-        <table tableName="WX_HH_TOYX" domainObjectName="Toyx" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="v_a_rcvbl_flow" domainObjectName="YDFX" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
     </context>
 </generatorConfiguration>
