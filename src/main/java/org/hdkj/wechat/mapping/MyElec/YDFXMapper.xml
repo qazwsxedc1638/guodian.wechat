@@ -38,12 +38,6 @@
     <result column="SPLIT_NUM" jdbcType="DECIMAL" property="splitNum" />
     <result column="SP_ID" jdbcType="DECIMAL" property="spId" />
   </resultMap>
-  <select id="selectByYDFXconsNo" parameterType="java.lang.String" resultMap="BaseResultMap">
-  select flow.T_PQ,flow.RCVBL_YM, '#99cc99'
-  from v_a_rcvbl_flow flow 
-  where 1=1 and flow.CONS_NO =#{consNo}  and  flow.RCVBL_YM  between #{startTime}  and  #{today_str} order by flow.RCVBL_YM asc
-  </select>
-  
   <insert id="insert" parameterType="org.hdkj.wechat.bean.MyElec.YDFX">
     insert into V_A_RCVBL_FLOW (RCVBL_AMT_ID, CALC_ID, AMT_TYPE, 
       RCVBL_YM, CONS_NO, ORG_NO, 
@@ -287,4 +281,5 @@
       </if>
     </trim>
   </insert>
+  
 </mapper>

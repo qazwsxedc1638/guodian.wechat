@@ -6,7 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.hdkj.wechat.bean.MyElec.YDFX;
 
 public interface YDFXMapper {
-    int insert(YDFX record);
+
+	int insert(YDFX record);
 
     int insertSelective(YDFX record);
     
