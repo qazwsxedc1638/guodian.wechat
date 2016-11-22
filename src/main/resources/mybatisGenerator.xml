@@ -18,19 +18,19 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="org.hdkj.wechat.bean.MyPay" targetProject="wechat">
+        <javaModelGenerator targetPackage="org.hdkj.wechat.bean.CityCounty" targetProject="wechat">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!--生成映射文件存放位置-->
-        <sqlMapGenerator targetPackage="org.hdkj.wechat.mapping.MyPay" targetProject="wechat">
+        <sqlMapGenerator targetPackage="org.hdkj.wechat.mapping.CityCounty" targetProject="wechat">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!--生成Dao类存放位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="org.hdkj.wechat.dao.MyPay" targetProject="wechat">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="org.hdkj.wechat.dao.CityCounty" targetProject="wechat">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->
-        <table tableName="YX_P_CODE" domainObjectName="Code" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="yx_o_org" domainObjectName="ORGCompany" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
     </context>
 </generatorConfiguration>

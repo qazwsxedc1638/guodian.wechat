@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.CityCounty.CityMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.CityCounty.City">
+    <result column="DD_KEY" jdbcType="VARCHAR" property="ddKey" />
+    <result column="DD_VALUE" jdbcType="VARCHAR" property="ddValue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+     DD_KEY, DD_VALUE
+  </sql> 
+  <select id="selectByCityAndCounty"  resultMap="BaseResultMap">
+    SELECT DD_KEY,DD_VALUE FROM WX_DD ORDER BY DD_KEY
+  </select>  
+   <select id="selectByCity"  resultMap="BaseResultMap">
+    SELECT DD_KEY,DD_VALUE FROM WX_DD where DD_TYPE='01'
+  </select> 
+  <select id="selectByCityInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT DD_KEY,DD_VALUE 
+    FROM WX_DD WHERE DD_PARENT IN (SELECT DD_KEY FROM WX_DD where DD_VALUE=#{city,jdbcType=VARCHAR}) ORDER BY DD_KEY
+  </select> 
+</mapper>
