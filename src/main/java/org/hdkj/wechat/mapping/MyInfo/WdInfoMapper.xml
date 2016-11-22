@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyInfo.WdInfoMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyInfo.WdInfo">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="SITE_NAME" jdbcType="VARCHAR" property="siteName" />
+    <result column="SITE_TYPE" jdbcType="VARCHAR" property="siteType" />
+    <result column="REGION_CODE" jdbcType="VARCHAR" property="regionCode" />
+    <result column="ADDR" jdbcType="VARCHAR" property="addr" />
+    <result column="CONTACT_NAME" jdbcType="VARCHAR" property="contactName" />
+    <result column="TEL" jdbcType="VARCHAR" property="tel" />
+    <result column="BUSINESS_TIME" jdbcType="VARCHAR" property="businessTime" />
+    <result column="BUSINESS_CONTENT" jdbcType="VARCHAR" property="businessContent" />
+    <result column="DESCI" jdbcType="VARCHAR" property="desci" />
+    <result column="LAT" jdbcType="VARCHAR" property="lat" />
+    <result column="LONGS" jdbcType="VARCHAR" property="longs" />
+    <result column="SYS_TYPE" jdbcType="VARCHAR" property="sysType" />
+    <result column="GEOHASHCODE" jdbcType="VARCHAR" property="geohashcode" />
+    <result column="SITE_TYPE_NAME" jdbcType="VARCHAR" property="siteTypeName" />
+    <result column="TYPE_NO" jdbcType="VARCHAR" property="typeNo" />
+    <result column="HALL_LEVEL" jdbcType="VARCHAR" property="hallLevel" />
+    <result column="LANDMARK" jdbcType="VARCHAR" property="landmark" />
+    <result column="REGION_NAME" jdbcType="VARCHAR" property="regionName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SITE_NAME, SITE_TYPE, REGION_CODE, ADDR, CONTACT_NAME, TEL, BUSINESS_TIME, BUSINESS_CONTENT, 
+    DESCI, LAT, LONGS, SYS_TYPE, GEOHASHCODE, SITE_TYPE_NAME, TYPE_NO, HALL_LEVEL, LANDMARK, 
+    REGION_NAME
+  </sql>
+   <select id="selectByRegionName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_WD_INFO
+    where REGION_NAME = #{regionName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_WD_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from WX_WD_INFO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyInfo.WdInfo">
+    insert into WX_WD_INFO (ID, SITE_NAME, SITE_TYPE, 
+      REGION_CODE, ADDR, CONTACT_NAME, 
+      TEL, BUSINESS_TIME, BUSINESS_CONTENT, 
+      DESCI, LAT, LONGS, 
+      SYS_TYPE, GEOHASHCODE, SITE_TYPE_NAME, 
+      TYPE_NO, HALL_LEVEL, LANDMARK, 
+      REGION_NAME)
+    values (#{id,jdbcType=VARCHAR}, #{siteName,jdbcType=VARCHAR}, #{siteType,jdbcType=VARCHAR}, 
+      #{regionCode,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{businessTime,jdbcType=VARCHAR}, #{businessContent,jdbcType=VARCHAR}, 
+      #{desci,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{longs,jdbcType=VARCHAR}, 
+      #{sysType,jdbcType=VARCHAR}, #{geohashcode,jdbcType=VARCHAR}, #{siteTypeName,jdbcType=VARCHAR}, 
+      #{typeNo,jdbcType=VARCHAR}, #{hallLevel,jdbcType=VARCHAR}, #{landmark,jdbcType=VARCHAR}, 
+      #{regionName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyInfo.WdInfo">
+    insert into WX_WD_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="siteName != null">
+        SITE_NAME,
+      </if>
+      <if test="siteType != null">
+        SITE_TYPE,
+      </if>
+      <if test="regionCode != null">
+        REGION_CODE,
+      </if>
+      <if test="addr != null">
+        ADDR,
+      </if>
+      <if test="contactName != null">
+        CONTACT_NAME,
+      </if>
+      <if test="tel != null">
+        TEL,
+      </if>
+      <if test="businessTime != null">
+        BUSINESS_TIME,
+      </if>
+      <if test="businessContent != null">
+        BUSINESS_CONTENT,
+      </if>
+      <if test="desci != null">
+        DESCI,
+      </if>
+      <if test="lat != null">
+        LAT,
+      </if>
+      <if test="longs != null">
+        LONGS,
+      </if>
+      <if test="sysType != null">
+        SYS_TYPE,
+      </if>
+      <if test="geohashcode != null">
+        GEOHASHCODE,
+      </if>
+      <if test="siteTypeName != null">
+        SITE_TYPE_NAME,
+      </if>
+      <if test="typeNo != null">
+        TYPE_NO,
+      </if>
+      <if test="hallLevel != null">
+        HALL_LEVEL,
+      </if>
+      <if test="landmark != null">
+        LANDMARK,
+      </if>
+      <if test="regionName != null">
+        REGION_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="siteName != null">
+        #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="siteType != null">
+        #{siteType,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null">
+        #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null">
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="businessTime != null">
+        #{businessTime,jdbcType=VARCHAR},
+      </if>
+      <if test="businessContent != null">
+        #{businessContent,jdbcType=VARCHAR},
+      </if>
+      <if test="desci != null">
+        #{desci,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="longs != null">
+        #{longs,jdbcType=VARCHAR},
+      </if>
+      <if test="sysType != null">
+        #{sysType,jdbcType=VARCHAR},
+      </if>
+      <if test="geohashcode != null">
+        #{geohashcode,jdbcType=VARCHAR},
+      </if>
+      <if test="siteTypeName != null">
+        #{siteTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeNo != null">
+        #{typeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="hallLevel != null">
+        #{hallLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="landmark != null">
+        #{landmark,jdbcType=VARCHAR},
+      </if>
+      <if test="regionName != null">
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyInfo.WdInfo">
+    update WX_WD_INFO
+    <set>
+      <if test="siteName != null">
+        SITE_NAME = #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="siteType != null">
+        SITE_TYPE = #{siteType,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null">
+        REGION_CODE = #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        ADDR = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null">
+        CONTACT_NAME = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="businessTime != null">
+        BUSINESS_TIME = #{businessTime,jdbcType=VARCHAR},
+      </if>
+      <if test="businessContent != null">
+        BUSINESS_CONTENT = #{businessContent,jdbcType=VARCHAR},
+      </if>
+      <if test="desci != null">
+        DESCI = #{desci,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        LAT = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="longs != null">
+        LONGS = #{longs,jdbcType=VARCHAR},
+      </if>
+      <if test="sysType != null">
+        SYS_TYPE = #{sysType,jdbcType=VARCHAR},
+      </if>
+      <if test="geohashcode != null">
+        GEOHASHCODE = #{geohashcode,jdbcType=VARCHAR},
+      </if>
+      <if test="siteTypeName != null">
+        SITE_TYPE_NAME = #{siteTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeNo != null">
+        TYPE_NO = #{typeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="hallLevel != null">
+        HALL_LEVEL = #{hallLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="landmark != null">
+        LANDMARK = #{landmark,jdbcType=VARCHAR},
+      </if>
+      <if test="regionName != null">
+        REGION_NAME = #{regionName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyInfo.WdInfo">
+    update WX_WD_INFO
+    set SITE_NAME = #{siteName,jdbcType=VARCHAR},
+      SITE_TYPE = #{siteType,jdbcType=VARCHAR},
+      REGION_CODE = #{regionCode,jdbcType=VARCHAR},
+      ADDR = #{addr,jdbcType=VARCHAR},
+      CONTACT_NAME = #{contactName,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      BUSINESS_TIME = #{businessTime,jdbcType=VARCHAR},
+      BUSINESS_CONTENT = #{businessContent,jdbcType=VARCHAR},
+      DESCI = #{desci,jdbcType=VARCHAR},
+      LAT = #{lat,jdbcType=VARCHAR},
+      LONGS = #{longs,jdbcType=VARCHAR},
+      SYS_TYPE = #{sysType,jdbcType=VARCHAR},
+      GEOHASHCODE = #{geohashcode,jdbcType=VARCHAR},
+      SITE_TYPE_NAME = #{siteTypeName,jdbcType=VARCHAR},
+      TYPE_NO = #{typeNo,jdbcType=VARCHAR},
+      HALL_LEVEL = #{hallLevel,jdbcType=VARCHAR},
+      LANDMARK = #{landmark,jdbcType=VARCHAR},
+      REGION_NAME = #{regionName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

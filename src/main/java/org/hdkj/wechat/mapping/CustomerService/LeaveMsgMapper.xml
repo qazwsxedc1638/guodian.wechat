@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.CustomerService.LeaveMsgMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.CustomerService.LeaveMsg">
+    <id column="MSG_ID" jdbcType="VARCHAR" property="msgId" />
+    <result column="WX_ID" jdbcType="VARCHAR" property="wxId" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="MSG_TIME" jdbcType="DATE" property="msgTime" />
+    <result column="REPLY_USER_LV1" jdbcType="VARCHAR" property="replyUserLv1" />
+    <result column="REPLY_TIME_LV1" jdbcType="DATE" property="replyTimeLv1" />
+    <result column="REPLY_STATE" jdbcType="VARCHAR" property="replyState" />
+    <result column="REPLY_USER_LV2" jdbcType="VARCHAR" property="replyUserLv2" />
+    <result column="REPLY_USER_LV1_CONTENT" jdbcType="VARCHAR" property="replyUserLv1Content" />
+    <result column="REPLY_USER_LV2_CONTENT" jdbcType="VARCHAR" property="replyUserLv2Content" />
+    <result column="REPLY_TIME_LV2" jdbcType="DATE" property="replyTimeLv2" />
+    <result column="MSG_TYPE" jdbcType="VARCHAR" property="msgType" />
+    <result column="WORK_NO" jdbcType="VARCHAR" property="workNo" />
+    <result column="ISLOCK" jdbcType="VARCHAR" property="islock" />
+    <result column="LOCK_USER_ID" jdbcType="VARCHAR" property="lockUserId" />
+    <result column="WX_PHONE" jdbcType="VARCHAR" property="wxPhone" />
+    <result column="WX_HH" jdbcType="VARCHAR" property="wxHh" />
+    <result column="MSG_COUNTY" jdbcType="VARCHAR" property="msgCounty" />
+    <result column="MSG_CITY" jdbcType="VARCHAR" property="msgCity" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    MSG_ID, WX_ID, CONTENT, MSG_TIME, REPLY_USER_LV1, REPLY_TIME_LV1, REPLY_STATE, REPLY_USER_LV2, 
+    REPLY_USER_LV1_CONTENT, REPLY_USER_LV2_CONTENT, REPLY_TIME_LV2, MSG_TYPE, WORK_NO, 
+    ISLOCK, LOCK_USER_ID, WX_PHONE, WX_HH, MSG_COUNTY, MSG_CITY
+  </sql>
+   <insert id="insertHelpInfo" parameterType="org.hdkj.wechat.bean.CustomerService.LeaveMsg">
+    insert into WX_MSG (MSG_ID, WX_ID, CONTENT, 
+      MSG_TIME, REPLY_USER_LV1, REPLY_TIME_LV1, 
+      REPLY_STATE, REPLY_USER_LV2, REPLY_USER_LV1_CONTENT, 
+      REPLY_USER_LV2_CONTENT, REPLY_TIME_LV2, MSG_TYPE, 
+      WORK_NO, ISLOCK, LOCK_USER_ID, 
+      WX_PHONE, WX_HH, MSG_COUNTY, 
+      MSG_CITY)
+    values (#{msgId,jdbcType=VARCHAR}, #{wxId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      sysdate, #{replyUserLv1,jdbcType=VARCHAR}, #{replyTimeLv1,jdbcType=DATE}, 
+      #{replyState,jdbcType=VARCHAR}, #{replyUserLv2,jdbcType=VARCHAR}, #{replyUserLv1Content,jdbcType=VARCHAR}, 
+      #{replyUserLv2Content,jdbcType=VARCHAR}, sysdate+1/24/60/60, &apos;01&apos;, 
+      #{workNo,jdbcType=VARCHAR}, #{islock,jdbcType=VARCHAR}, #{lockUserId,jdbcType=VARCHAR}, 
+      #{wxPhone,jdbcType=VARCHAR}, #{wxHh,jdbcType=VARCHAR}, #{msgCounty,jdbcType=VARCHAR}, 
+      #{msgCity,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectHelpInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_MSG
+    where WX_ID = #{wxId,jdbcType=VARCHAR}
+    and MSG_TYPE in ('01','04','08')
+    order by MSG_TIME
+  </select>
+  <select id="selectComplaint" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_MSG
+    where WX_ID = #{wxId,jdbcType=VARCHAR}
+    and MSG_TYPE = '07' 
+    order by MSG_TIME
+  </select>
+   <insert id="insertComplaint" parameterType="org.hdkj.wechat.bean.CustomerService.LeaveMsg">
+    insert into WX_MSG (MSG_ID, WX_ID, CONTENT, 
+      MSG_TIME, REPLY_USER_LV1, REPLY_TIME_LV1, 
+      REPLY_STATE, REPLY_USER_LV2, REPLY_USER_LV1_CONTENT, 
+      REPLY_USER_LV2_CONTENT, REPLY_TIME_LV2, MSG_TYPE, 
+      WORK_NO, ISLOCK, LOCK_USER_ID, 
+      WX_PHONE, WX_HH, MSG_COUNTY, 
+      MSG_CITY)
+    values (#{msgId,jdbcType=VARCHAR}, #{wxId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      sysdate, #{replyUserLv1,jdbcType=VARCHAR}, #{replyTimeLv1,jdbcType=DATE}, 
+      #{replyState,jdbcType=VARCHAR}, #{replyUserLv2,jdbcType=VARCHAR}, #{replyUserLv1Content,jdbcType=VARCHAR}, 
+      #{replyUserLv2Content,jdbcType=VARCHAR}, sysdate+1/24/60/60, &apos;07&apos;, 
+      #{workNo,jdbcType=VARCHAR}, #{islock,jdbcType=VARCHAR}, #{lockUserId,jdbcType=VARCHAR}, 
+      #{wxPhone,jdbcType=VARCHAR}, #{wxHh,jdbcType=VARCHAR}, #{msgCounty,jdbcType=VARCHAR}, 
+      #{msgCity,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectLeaveMsg" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_MSG
+    where WX_ID = #{wxId,jdbcType=VARCHAR}
+    and MSG_TYPE = '03'
+    order by MSG_TIME
+  </select>
+  <insert id="insertLeaveMsg" parameterType="org.hdkj.wechat.bean.CustomerService.LeaveMsg">
+    insert into WX_MSG (MSG_ID, WX_ID, CONTENT, 
+      MSG_TIME, REPLY_USER_LV1, REPLY_TIME_LV1, 
+      REPLY_STATE, REPLY_USER_LV2, REPLY_USER_LV1_CONTENT, 
+      REPLY_USER_LV2_CONTENT, REPLY_TIME_LV2, MSG_TYPE, 
+      WORK_NO, ISLOCK, LOCK_USER_ID, 
+      WX_PHONE, WX_HH, MSG_COUNTY, 
+      MSG_CITY)
+    values (#{msgId,jdbcType=VARCHAR}, #{wxId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      sysdate, #{replyUserLv1,jdbcType=VARCHAR}, #{replyTimeLv1,jdbcType=DATE}, 
+      #{replyState,jdbcType=VARCHAR}, #{replyUserLv2,jdbcType=VARCHAR}, #{replyUserLv1Content,jdbcType=VARCHAR}, 
+      #{replyUserLv2Content,jdbcType=VARCHAR}, sysdate+1/24/60/60, &apos;03&apos;, 
+      #{workNo,jdbcType=VARCHAR}, #{islock,jdbcType=VARCHAR}, #{lockUserId,jdbcType=VARCHAR}, 
+      #{wxPhone,jdbcType=VARCHAR}, #{wxHh,jdbcType=VARCHAR}, #{msgCounty,jdbcType=VARCHAR}, 
+      #{msgCity,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_MSG
+    where MSG_ID = #{msgId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from WX_MSG
+    where MSG_ID = #{msgId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.CustomerService.LeaveMsg">
+    insert into WX_MSG (MSG_ID, WX_ID, CONTENT, 
+      MSG_TIME, REPLY_USER_LV1, REPLY_TIME_LV1, 
+      REPLY_STATE, REPLY_USER_LV2, REPLY_USER_LV1_CONTENT, 
+      REPLY_USER_LV2_CONTENT, REPLY_TIME_LV2, MSG_TYPE, 
+      WORK_NO, ISLOCK, LOCK_USER_ID, 
+      WX_PHONE, WX_HH, MSG_COUNTY, 
+      MSG_CITY)
+    values (#{msgId,jdbcType=VARCHAR}, #{wxId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{msgTime,jdbcType=DATE}, #{replyUserLv1,jdbcType=VARCHAR}, #{replyTimeLv1,jdbcType=DATE}, 
+      #{replyState,jdbcType=VARCHAR}, #{replyUserLv2,jdbcType=VARCHAR}, #{replyUserLv1Content,jdbcType=VARCHAR}, 
+      #{replyUserLv2Content,jdbcType=VARCHAR}, #{replyTimeLv2,jdbcType=DATE}, #{msgType,jdbcType=VARCHAR}, 
+      #{workNo,jdbcType=VARCHAR}, #{islock,jdbcType=VARCHAR}, #{lockUserId,jdbcType=VARCHAR}, 
+      #{wxPhone,jdbcType=VARCHAR}, #{wxHh,jdbcType=VARCHAR}, #{msgCounty,jdbcType=VARCHAR}, 
+      #{msgCity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.CustomerService.LeaveMsg">
+    insert into WX_MSG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        MSG_ID,
+      </if>
+      <if test="wxId != null">
+        WX_ID,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="msgTime != null">
+        MSG_TIME,
+      </if>
+      <if test="replyUserLv1 != null">
+        REPLY_USER_LV1,
+      </if>
+      <if test="replyTimeLv1 != null">
+        REPLY_TIME_LV1,
+      </if>
+      <if test="replyState != null">
+        REPLY_STATE,
+      </if>
+      <if test="replyUserLv2 != null">
+        REPLY_USER_LV2,
+      </if>
+      <if test="replyUserLv1Content != null">
+        REPLY_USER_LV1_CONTENT,
+      </if>
+      <if test="replyUserLv2Content != null">
+        REPLY_USER_LV2_CONTENT,
+      </if>
+      <if test="replyTimeLv2 != null">
+        REPLY_TIME_LV2,
+      </if>
+      <if test="msgType != null">
+        MSG_TYPE,
+      </if>
+      <if test="workNo != null">
+        WORK_NO,
+      </if>
+      <if test="islock != null">
+        ISLOCK,
+      </if>
+      <if test="lockUserId != null">
+        LOCK_USER_ID,
+      </if>
+      <if test="wxPhone != null">
+        WX_PHONE,
+      </if>
+      <if test="wxHh != null">
+        WX_HH,
+      </if>
+      <if test="msgCounty != null">
+        MSG_COUNTY,
+      </if>
+      <if test="msgCity != null">
+        MSG_CITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        #{msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxId != null">
+        #{wxId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTime != null">
+        #{msgTime,jdbcType=DATE},
+      </if>
+      <if test="replyUserLv1 != null">
+        #{replyUserLv1,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTimeLv1 != null">
+        #{replyTimeLv1,jdbcType=DATE},
+      </if>
+      <if test="replyState != null">
+        #{replyState,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUserLv2 != null">
+        #{replyUserLv2,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUserLv1Content != null">
+        #{replyUserLv1Content,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUserLv2Content != null">
+        #{replyUserLv2Content,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTimeLv2 != null">
+        #{replyTimeLv2,jdbcType=DATE},
+      </if>
+      <if test="msgType != null">
+        #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="workNo != null">
+        #{workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="islock != null">
+        #{islock,jdbcType=VARCHAR},
+      </if>
+      <if test="lockUserId != null">
+        #{lockUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxPhone != null">
+        #{wxPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="wxHh != null">
+        #{wxHh,jdbcType=VARCHAR},
+      </if>
+      <if test="msgCounty != null">
+        #{msgCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="msgCity != null">
+        #{msgCity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.CustomerService.LeaveMsg">
+    update WX_MSG
+    <set>
+      <if test="wxId != null">
+        WX_ID = #{wxId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTime != null">
+        MSG_TIME = #{msgTime,jdbcType=DATE},
+      </if>
+      <if test="replyUserLv1 != null">
+        REPLY_USER_LV1 = #{replyUserLv1,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTimeLv1 != null">
+        REPLY_TIME_LV1 = #{replyTimeLv1,jdbcType=DATE},
+      </if>
+      <if test="replyState != null">
+        REPLY_STATE = #{replyState,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUserLv2 != null">
+        REPLY_USER_LV2 = #{replyUserLv2,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUserLv1Content != null">
+        REPLY_USER_LV1_CONTENT = #{replyUserLv1Content,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUserLv2Content != null">
+        REPLY_USER_LV2_CONTENT = #{replyUserLv2Content,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTimeLv2 != null">
+        REPLY_TIME_LV2 = #{replyTimeLv2,jdbcType=DATE},
+      </if>
+      <if test="msgType != null">
+        MSG_TYPE = #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="workNo != null">
+        WORK_NO = #{workNo,jdbcType=VARCHAR},
+      </if>
+      <if test="islock != null">
+        ISLOCK = #{islock,jdbcType=VARCHAR},
+      </if>
+      <if test="lockUserId != null">
+        LOCK_USER_ID = #{lockUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxPhone != null">
+        WX_PHONE = #{wxPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="wxHh != null">
+        WX_HH = #{wxHh,jdbcType=VARCHAR},
+      </if>
+      <if test="msgCounty != null">
+        MSG_COUNTY = #{msgCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="msgCity != null">
+        MSG_CITY = #{msgCity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MSG_ID = #{msgId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.CustomerService.LeaveMsg">
+    update WX_MSG
+    set WX_ID = #{wxId,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      MSG_TIME = #{msgTime,jdbcType=DATE},
+      REPLY_USER_LV1 = #{replyUserLv1,jdbcType=VARCHAR},
+      REPLY_TIME_LV1 = #{replyTimeLv1,jdbcType=DATE},
+      REPLY_STATE = #{replyState,jdbcType=VARCHAR},
+      REPLY_USER_LV2 = #{replyUserLv2,jdbcType=VARCHAR},
+      REPLY_USER_LV1_CONTENT = #{replyUserLv1Content,jdbcType=VARCHAR},
+      REPLY_USER_LV2_CONTENT = #{replyUserLv2Content,jdbcType=VARCHAR},
+      REPLY_TIME_LV2 = #{replyTimeLv2,jdbcType=DATE},
+      MSG_TYPE = #{msgType,jdbcType=VARCHAR},
+      WORK_NO = #{workNo,jdbcType=VARCHAR},
+      ISLOCK = #{islock,jdbcType=VARCHAR},
+      LOCK_USER_ID = #{lockUserId,jdbcType=VARCHAR},
+      WX_PHONE = #{wxPhone,jdbcType=VARCHAR},
+      WX_HH = #{wxHh,jdbcType=VARCHAR},
+      MSG_COUNTY = #{msgCounty,jdbcType=VARCHAR},
+      MSG_CITY = #{msgCity,jdbcType=VARCHAR}
+    where MSG_ID = #{msgId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -22,13 +22,6 @@ public class DLDFRestController {
 	@Resource
 	private DLDFService dldfService;
 	
-	@ApiOperation(value = "获取电量电费", notes = "根据id获取电量电费")  
-	@RequestMapping(value = "/{rcvblAmtId}", method = RequestMethod.GET) 
-	public DLDF getDLDFbyId(@PathVariable Long rcvblAmtId){
-		
-		DLDF dldf = this.dldfService.getDLDFbyId(rcvblAmtId);
-		return dldf;
-	}
 	
 	@ApiOperation(value = "获取电量电费", notes = "根据id获取电量电费")  
 	@RequestMapping(value = "/cons/{consNo}/{rcvblYm}", method = RequestMethod.GET) 
