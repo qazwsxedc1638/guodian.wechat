@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyInfo.GuideItemMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyInfo.GuideItem">
+    <id column="ITEM_ID" jdbcType="VARCHAR" property="itemId" />
+    <result column="TYPE_ID" jdbcType="VARCHAR" property="typeId" />
+    <result column="ITEM_CONTENT" jdbcType="VARCHAR" property="itemContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ITEM_ID, TYPE_ID, ITEM_CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_GUIDE_ITEM
+    where ITEM_ID = #{itemId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from WX_GUIDE_ITEM
+    where ITEM_ID = #{itemId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyInfo.GuideItem">
+    insert into WX_GUIDE_ITEM (ITEM_ID, TYPE_ID, ITEM_CONTENT
+      )
+    values (#{itemId,jdbcType=VARCHAR}, #{typeId,jdbcType=VARCHAR}, #{itemContent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyInfo.GuideItem">
+    insert into WX_GUIDE_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="typeId != null">
+        TYPE_ID,
+      </if>
+      <if test="itemContent != null">
+        ITEM_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemContent != null">
+        #{itemContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyInfo.GuideItem">
+    update WX_GUIDE_ITEM
+    <set>
+      <if test="typeId != null">
+        TYPE_ID = #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemContent != null">
+        ITEM_CONTENT = #{itemContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_ID = #{itemId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyInfo.GuideItem">
+    update WX_GUIDE_ITEM
+    set TYPE_ID = #{typeId,jdbcType=VARCHAR},
+      ITEM_CONTENT = #{itemContent,jdbcType=VARCHAR}
+    where ITEM_ID = #{itemId,jdbcType=VARCHAR}
+  </update>
+</mapper>

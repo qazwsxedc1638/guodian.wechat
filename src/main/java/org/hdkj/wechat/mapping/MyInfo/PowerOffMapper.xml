@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyInfo.PowerOffMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyInfo.PowerOff">
+    <id column="INFO_ID" jdbcType="VARCHAR" property="infoId" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="DISTRICT" jdbcType="VARCHAR" property="district" />
+    <result column="INFO" jdbcType="VARCHAR" property="info" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    INFO_ID, CITY, DISTRICT, INFO, START_TIME, END_TIME
+  </sql>
+   <select id="selectByCity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_POWER_OFF_INFO
+    where CITY= #{city,jdbcType=VARCHAR}
+  </select>
+   <select id="selectByCityAndDistrict" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_POWER_OFF_INFO
+    where CITY= #{city,jdbcType=VARCHAR}
+    and DISTRICT = #{district,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_POWER_OFF_INFO
+    where INFO_ID = #{infoId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from WX_POWER_OFF_INFO
+    where INFO_ID = #{infoId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyInfo.PowerOff">
+    insert into WX_POWER_OFF_INFO (INFO_ID, CITY, DISTRICT, 
+      INFO, START_TIME, END_TIME
+      )
+    values (#{infoId,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
+      #{info,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyInfo.PowerOff">
+    insert into WX_POWER_OFF_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="infoId != null">
+        INFO_ID,
+      </if>
+      <if test="city != null">
+        CITY,
+      </if>
+      <if test="district != null">
+        DISTRICT,
+      </if>
+      <if test="info != null">
+        INFO,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="infoId != null">
+        #{infoId,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyInfo.PowerOff">
+    update WX_POWER_OFF_INFO
+    <set>
+      <if test="city != null">
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        DISTRICT = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        INFO = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where INFO_ID = #{infoId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyInfo.PowerOff">
+    update WX_POWER_OFF_INFO
+    set CITY = #{city,jdbcType=VARCHAR},
+      DISTRICT = #{district,jdbcType=VARCHAR},
+      INFO = #{info,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP}
+    where INFO_ID = #{infoId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -58,8 +58,8 @@ public class HhInfoRestController {
 	@ApiOperation(value = "修改默认户号",notes = "根据用户id和微信号修改默认户号")
 	@RequestMapping(value = "/modifyDefaultHh/{id}/{wx}/{bindstatus}",method = RequestMethod.PUT)
 	public Integer modifyDefaultHh(@PathVariable String id,@PathVariable String wx,@PathVariable String bindstatus){
-		Integer count = hhInfoService.bindDefaultHhById(id, bindstatus);
 		Integer count1 = hhInfoService.releaseDefaultHhByWx(wx, bindstatus);
+		Integer count = hhInfoService.bindDefaultHhById(id, bindstatus);
 		return count1-count;
 	}
 	

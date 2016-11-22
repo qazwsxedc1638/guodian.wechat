@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyInfo.GuideTypeMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyInfo.GuideType">
+    <id column="TYPE_ID" jdbcType="VARCHAR" property="typeId" />
+    <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />
+    <result column="P_ID" jdbcType="VARCHAR" property="pId" />
+    <result column="URLS" jdbcType="VARCHAR" property="urls" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TYPE_ID, TYPE_NAME, P_ID, URLS
+  </sql>
+  <select id="selectByPId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_GUIDE_TYPE
+    where P_ID &lt; 0 or P_ID is null
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_GUIDE_TYPE
+    where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from WX_GUIDE_TYPE
+    where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyInfo.GuideType">
+    insert into WX_GUIDE_TYPE (TYPE_ID, TYPE_NAME, P_ID, 
+      URLS)
+    values (#{typeId,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{pId,jdbcType=VARCHAR}, 
+      #{urls,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyInfo.GuideType">
+    insert into WX_GUIDE_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="typeId != null">
+        TYPE_ID,
+      </if>
+      <if test="typeName != null">
+        TYPE_NAME,
+      </if>
+      <if test="pId != null">
+        P_ID,
+      </if>
+      <if test="urls != null">
+        URLS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="typeId != null">
+        #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=VARCHAR},
+      </if>
+      <if test="urls != null">
+        #{urls,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyInfo.GuideType">
+    update WX_GUIDE_TYPE
+    <set>
+      <if test="typeName != null">
+        TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        P_ID = #{pId,jdbcType=VARCHAR},
+      </if>
+      <if test="urls != null">
+        URLS = #{urls,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyInfo.GuideType">
+    update WX_GUIDE_TYPE
+    set TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      P_ID = #{pId,jdbcType=VARCHAR},
+      URLS = #{urls,jdbcType=VARCHAR}
+    where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+  </update>
+</mapper>
