@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyPay.PayMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyPay.Pay">
+    <id column="CHARGE_ID" jdbcType="DECIMAL" property="chargeId" />
+    <result column="CASHCHK_ID" jdbcType="DECIMAL" property="cashchkId" />
+    <result column="ACCT_ID" jdbcType="DECIMAL" property="acctId" />
+    <result column="CONS_NO" jdbcType="VARCHAR" property="consNo" />
+    <result column="ORG_NO" jdbcType="VARCHAR" property="orgNo" />
+    <result column="CHARGE_YM" jdbcType="VARCHAR" property="chargeYm" />
+    <result column="CHARGE_DATE" jdbcType="DATE" property="chargeDate" />
+    <result column="ACCT_YM" jdbcType="VARCHAR" property="acctYm" />
+    <result column="TYPE_CODE" jdbcType="VARCHAR" property="typeCode" />
+    <result column="RCV_AMT" jdbcType="DECIMAL" property="rcvAmt" />
+    <result column="THIS_CHG" jdbcType="DECIMAL" property="thisChg" />
+    <result column="LAST_CHG" jdbcType="DECIMAL" property="lastChg" />
+    <result column="CHARGE_EMP_NO" jdbcType="VARCHAR" property="chargeEmpNo" />
+    <result column="PAY_MODE" jdbcType="VARCHAR" property="payMode" />
+    <result column="SETTLE_MODE" jdbcType="VARCHAR" property="settleMode" />
+    <result column="SETTLE_NOTE_NO" jdbcType="VARCHAR" property="settleNoteNo" />
+    <result column="SETTLE_BANK_CODE" jdbcType="VARCHAR" property="settleBankCode" />
+    <result column="ACCT_NO" jdbcType="VARCHAR" property="acctNo" />
+    <result column="CHARGE_REMARK" jdbcType="VARCHAR" property="chargeRemark" />
+    <result column="RCV_ORG_NO" jdbcType="VARCHAR" property="rcvOrgNo" />
+    <result column="DEPT_NO" jdbcType="VARCHAR" property="deptNo" />
+    <result column="STATUS_CODE" jdbcType="VARCHAR" property="statusCode" />
+    <result column="RELATE_ID" jdbcType="DECIMAL" property="relateId" />
+    <result column="RCVED_DATE" jdbcType="VARCHAR" property="rcvedDate" />
+    <result column="BANK_DATE" jdbcType="VARCHAR" property="bankDate" />
+    <result column="CONS_BANK_ACCT" jdbcType="VARCHAR" property="consBankAcct" />
+    <result column="BRANCH_ID" jdbcType="DECIMAL" property="branchId" />
+    <result column="STAT_NO" jdbcType="VARCHAR" property="statNo" />
+    <result column="PREPAY_CODE" jdbcType="VARCHAR" property="prepayCode" />
+    <result column="PAY_VER" jdbcType="VARCHAR" property="payVer" />
+    <result column="TRANSFER_TYPE" jdbcType="VARCHAR" property="transferType" />
+    <result column="TRANSFER_DIRECTION" jdbcType="VARCHAR" property="transferDirection" />
+    <result column="ARRIVE_STATUS" jdbcType="VARCHAR" property="arriveStatus" />
+    <result column="CODE_ID" jdbcType="DECIMAL" property="codeId" />
+    <result column="CODE_SORT_ID" jdbcType="DECIMAL" property="codeSortId" />
+    <result column="P_CODE" jdbcType="VARCHAR" property="pCode" />
+    <result column="CODE_TYPE" jdbcType="VARCHAR" property="codeType" />
+    <result column="ORG_NO" jdbcType="VARCHAR" property="orgNo" />
+    <result column="VALUE" jdbcType="VARCHAR" property="value" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="DISP_SN" jdbcType="DECIMAL" property="dispSn" />
+    <result column="CONTENT1" jdbcType="VARCHAR" property="content1" />
+    <result column="CONTENT2" jdbcType="VARCHAR" property="content2" />
+    <result column="CONTENT3" jdbcType="VARCHAR" property="content3" />
+    <result column="CONTENT4" jdbcType="VARCHAR" property="content4" />
+    <result column="CONTENT5" jdbcType="VARCHAR" property="content5" />  
+  </resultMap>
+  <sql id="Base_Column_List">
+    CHARGE_ID, CASHCHK_ID, ACCT_ID, CONS_NO, ORG_NO, CHARGE_YM, CHARGE_DATE, ACCT_YM, 
+    TYPE_CODE, RCV_AMT, THIS_CHG, LAST_CHG, CHARGE_EMP_NO, PAY_MODE, SETTLE_MODE, SETTLE_NOTE_NO, 
+    SETTLE_BANK_CODE, ACCT_NO, CHARGE_REMARK, RCV_ORG_NO, DEPT_NO, STATUS_CODE, RELATE_ID, 
+    RCVED_DATE, BANK_DATE, CONS_BANK_ACCT, BRANCH_ID, STAT_NO, PREPAY_CODE, PAY_VER, 
+    TRANSFER_TYPE, TRANSFER_DIRECTION, ARRIVE_STATUS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from YX_A_PAY_FLOW
+    where CHARGE_ID = #{chargeId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectByPayConsNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+  SELECT pay.cons_no, pay.rcv_amt , to_char(pay.charge_date,'yyyy-MM-dd HH24:MI:SS'),c.name 
+  FROM YX_A_PAY_FLOW pay join yx_p_code c 
+  on pay.pay_mode = c.value and c.code_type ='payMode' WHERE  PAY.CONS_NO=#{consNO,jdbcType=VARCHAR} order by charge_date desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from YX_A_PAY_FLOW
+    where CHARGE_ID = #{chargeId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyPay.Pay">
+    insert into YX_A_PAY_FLOW (CHARGE_ID, CASHCHK_ID, ACCT_ID, 
+      CONS_NO, ORG_NO, CHARGE_YM, 
+      CHARGE_DATE, ACCT_YM, TYPE_CODE, 
+      RCV_AMT, THIS_CHG, LAST_CHG, 
+      CHARGE_EMP_NO, PAY_MODE, SETTLE_MODE, 
+      SETTLE_NOTE_NO, SETTLE_BANK_CODE, ACCT_NO, 
+      CHARGE_REMARK, RCV_ORG_NO, DEPT_NO, 
+      STATUS_CODE, RELATE_ID, RCVED_DATE, 
+      BANK_DATE, CONS_BANK_ACCT, BRANCH_ID, 
+      STAT_NO, PREPAY_CODE, PAY_VER, 
+      TRANSFER_TYPE, TRANSFER_DIRECTION, ARRIVE_STATUS
+      )
+    values (#{chargeId,jdbcType=DECIMAL}, #{cashchkId,jdbcType=DECIMAL}, #{acctId,jdbcType=DECIMAL}, 
+      #{consNo,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}, #{chargeYm,jdbcType=VARCHAR}, 
+      #{chargeDate,jdbcType=DATE}, #{acctYm,jdbcType=VARCHAR}, #{typeCode,jdbcType=VARCHAR}, 
+      #{rcvAmt,jdbcType=DECIMAL}, #{thisChg,jdbcType=DECIMAL}, #{lastChg,jdbcType=DECIMAL}, 
+      #{chargeEmpNo,jdbcType=VARCHAR}, #{payMode,jdbcType=VARCHAR}, #{settleMode,jdbcType=VARCHAR}, 
+      #{settleNoteNo,jdbcType=VARCHAR}, #{settleBankCode,jdbcType=VARCHAR}, #{acctNo,jdbcType=VARCHAR}, 
+      #{chargeRemark,jdbcType=VARCHAR}, #{rcvOrgNo,jdbcType=VARCHAR}, #{deptNo,jdbcType=VARCHAR}, 
+      #{statusCode,jdbcType=VARCHAR}, #{relateId,jdbcType=DECIMAL}, #{rcvedDate,jdbcType=VARCHAR}, 
+      #{bankDate,jdbcType=VARCHAR}, #{consBankAcct,jdbcType=VARCHAR}, #{branchId,jdbcType=DECIMAL}, 
+      #{statNo,jdbcType=VARCHAR}, #{prepayCode,jdbcType=VARCHAR}, #{payVer,jdbcType=VARCHAR}, 
+      #{transferType,jdbcType=VARCHAR}, #{transferDirection,jdbcType=VARCHAR}, #{arriveStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyPay.Pay">
+    insert into YX_A_PAY_FLOW
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="chargeId != null">
+        CHARGE_ID,
+      </if>
+      <if test="cashchkId != null">
+        CASHCHK_ID,
+      </if>
+      <if test="acctId != null">
+        ACCT_ID,
+      </if>
+      <if test="consNo != null">
+        CONS_NO,
+      </if>
+      <if test="orgNo != null">
+        ORG_NO,
+      </if>
+      <if test="chargeYm != null">
+        CHARGE_YM,
+      </if>
+      <if test="chargeDate != null">
+        CHARGE_DATE,
+      </if>
+      <if test="acctYm != null">
+        ACCT_YM,
+      </if>
+      <if test="typeCode != null">
+        TYPE_CODE,
+      </if>
+      <if test="rcvAmt != null">
+        RCV_AMT,
+      </if>
+      <if test="thisChg != null">
+        THIS_CHG,
+      </if>
+      <if test="lastChg != null">
+        LAST_CHG,
+      </if>
+      <if test="chargeEmpNo != null">
+        CHARGE_EMP_NO,
+      </if>
+      <if test="payMode != null">
+        PAY_MODE,
+      </if>
+      <if test="settleMode != null">
+        SETTLE_MODE,
+      </if>
+      <if test="settleNoteNo != null">
+        SETTLE_NOTE_NO,
+      </if>
+      <if test="settleBankCode != null">
+        SETTLE_BANK_CODE,
+      </if>
+      <if test="acctNo != null">
+        ACCT_NO,
+      </if>
+      <if test="chargeRemark != null">
+        CHARGE_REMARK,
+      </if>
+      <if test="rcvOrgNo != null">
+        RCV_ORG_NO,
+      </if>
+      <if test="deptNo != null">
+        DEPT_NO,
+      </if>
+      <if test="statusCode != null">
+        STATUS_CODE,
+      </if>
+      <if test="relateId != null">
+        RELATE_ID,
+      </if>
+      <if test="rcvedDate != null">
+        RCVED_DATE,
+      </if>
+      <if test="bankDate != null">
+        BANK_DATE,
+      </if>
+      <if test="consBankAcct != null">
+        CONS_BANK_ACCT,
+      </if>
+      <if test="branchId != null">
+        BRANCH_ID,
+      </if>
+      <if test="statNo != null">
+        STAT_NO,
+      </if>
+      <if test="prepayCode != null">
+        PREPAY_CODE,
+      </if>
+      <if test="payVer != null">
+        PAY_VER,
+      </if>
+      <if test="transferType != null">
+        TRANSFER_TYPE,
+      </if>
+      <if test="transferDirection != null">
+        TRANSFER_DIRECTION,
+      </if>
+      <if test="arriveStatus != null">
+        ARRIVE_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="chargeId != null">
+        #{chargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="cashchkId != null">
+        #{cashchkId,jdbcType=DECIMAL},
+      </if>
+      <if test="acctId != null">
+        #{acctId,jdbcType=DECIMAL},
+      </if>
+      <if test="consNo != null">
+        #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null">
+        #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeYm != null">
+        #{chargeYm,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeDate != null">
+        #{chargeDate,jdbcType=DATE},
+      </if>
+      <if test="acctYm != null">
+        #{acctYm,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvAmt != null">
+        #{rcvAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="thisChg != null">
+        #{thisChg,jdbcType=DECIMAL},
+      </if>
+      <if test="lastChg != null">
+        #{lastChg,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeEmpNo != null">
+        #{chargeEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payMode != null">
+        #{payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="settleMode != null">
+        #{settleMode,jdbcType=VARCHAR},
+      </if>
+      <if test="settleNoteNo != null">
+        #{settleNoteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="settleBankCode != null">
+        #{settleBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="acctNo != null">
+        #{acctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeRemark != null">
+        #{chargeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvOrgNo != null">
+        #{rcvOrgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deptNo != null">
+        #{deptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null">
+        #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="relateId != null">
+        #{relateId,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvedDate != null">
+        #{rcvedDate,jdbcType=VARCHAR},
+      </if>
+      <if test="bankDate != null">
+        #{bankDate,jdbcType=VARCHAR},
+      </if>
+      <if test="consBankAcct != null">
+        #{consBankAcct,jdbcType=VARCHAR},
+      </if>
+      <if test="branchId != null">
+        #{branchId,jdbcType=DECIMAL},
+      </if>
+      <if test="statNo != null">
+        #{statNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayCode != null">
+        #{prepayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payVer != null">
+        #{payVer,jdbcType=VARCHAR},
+      </if>
+      <if test="transferType != null">
+        #{transferType,jdbcType=VARCHAR},
+      </if>
+      <if test="transferDirection != null">
+        #{transferDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveStatus != null">
+        #{arriveStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyPay.Pay">
+    update YX_A_PAY_FLOW
+    <set>
+      <if test="cashchkId != null">
+        CASHCHK_ID = #{cashchkId,jdbcType=DECIMAL},
+      </if>
+      <if test="acctId != null">
+        ACCT_ID = #{acctId,jdbcType=DECIMAL},
+      </if>
+      <if test="consNo != null">
+        CONS_NO = #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null">
+        ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeYm != null">
+        CHARGE_YM = #{chargeYm,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeDate != null">
+        CHARGE_DATE = #{chargeDate,jdbcType=DATE},
+      </if>
+      <if test="acctYm != null">
+        ACCT_YM = #{acctYm,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        TYPE_CODE = #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvAmt != null">
+        RCV_AMT = #{rcvAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="thisChg != null">
+        THIS_CHG = #{thisChg,jdbcType=DECIMAL},
+      </if>
+      <if test="lastChg != null">
+        LAST_CHG = #{lastChg,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeEmpNo != null">
+        CHARGE_EMP_NO = #{chargeEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payMode != null">
+        PAY_MODE = #{payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="settleMode != null">
+        SETTLE_MODE = #{settleMode,jdbcType=VARCHAR},
+      </if>
+      <if test="settleNoteNo != null">
+        SETTLE_NOTE_NO = #{settleNoteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="settleBankCode != null">
+        SETTLE_BANK_CODE = #{settleBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="acctNo != null">
+        ACCT_NO = #{acctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeRemark != null">
+        CHARGE_REMARK = #{chargeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvOrgNo != null">
+        RCV_ORG_NO = #{rcvOrgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deptNo != null">
+        DEPT_NO = #{deptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null">
+        STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="relateId != null">
+        RELATE_ID = #{relateId,jdbcType=DECIMAL},
+      </if>
+      <if test="rcvedDate != null">
+        RCVED_DATE = #{rcvedDate,jdbcType=VARCHAR},
+      </if>
+      <if test="bankDate != null">
+        BANK_DATE = #{bankDate,jdbcType=VARCHAR},
+      </if>
+      <if test="consBankAcct != null">
+        CONS_BANK_ACCT = #{consBankAcct,jdbcType=VARCHAR},
+      </if>
+      <if test="branchId != null">
+        BRANCH_ID = #{branchId,jdbcType=DECIMAL},
+      </if>
+      <if test="statNo != null">
+        STAT_NO = #{statNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayCode != null">
+        PREPAY_CODE = #{prepayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payVer != null">
+        PAY_VER = #{payVer,jdbcType=VARCHAR},
+      </if>
+      <if test="transferType != null">
+        TRANSFER_TYPE = #{transferType,jdbcType=VARCHAR},
+      </if>
+      <if test="transferDirection != null">
+        TRANSFER_DIRECTION = #{transferDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveStatus != null">
+        ARRIVE_STATUS = #{arriveStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CHARGE_ID = #{chargeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyPay.Pay">
+    update YX_A_PAY_FLOW
+    set CASHCHK_ID = #{cashchkId,jdbcType=DECIMAL},
+      ACCT_ID = #{acctId,jdbcType=DECIMAL},
+      CONS_NO = #{consNo,jdbcType=VARCHAR},
+      ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      CHARGE_YM = #{chargeYm,jdbcType=VARCHAR},
+      CHARGE_DATE = #{chargeDate,jdbcType=DATE},
+      ACCT_YM = #{acctYm,jdbcType=VARCHAR},
+      TYPE_CODE = #{typeCode,jdbcType=VARCHAR},
+      RCV_AMT = #{rcvAmt,jdbcType=DECIMAL},
+      THIS_CHG = #{thisChg,jdbcType=DECIMAL},
+      LAST_CHG = #{lastChg,jdbcType=DECIMAL},
+      CHARGE_EMP_NO = #{chargeEmpNo,jdbcType=VARCHAR},
+      PAY_MODE = #{payMode,jdbcType=VARCHAR},
+      SETTLE_MODE = #{settleMode,jdbcType=VARCHAR},
+      SETTLE_NOTE_NO = #{settleNoteNo,jdbcType=VARCHAR},
+      SETTLE_BANK_CODE = #{settleBankCode,jdbcType=VARCHAR},
+      ACCT_NO = #{acctNo,jdbcType=VARCHAR},
+      CHARGE_REMARK = #{chargeRemark,jdbcType=VARCHAR},
+      RCV_ORG_NO = #{rcvOrgNo,jdbcType=VARCHAR},
+      DEPT_NO = #{deptNo,jdbcType=VARCHAR},
+      STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      RELATE_ID = #{relateId,jdbcType=DECIMAL},
+      RCVED_DATE = #{rcvedDate,jdbcType=VARCHAR},
+      BANK_DATE = #{bankDate,jdbcType=VARCHAR},
+      CONS_BANK_ACCT = #{consBankAcct,jdbcType=VARCHAR},
+      BRANCH_ID = #{branchId,jdbcType=DECIMAL},
+      STAT_NO = #{statNo,jdbcType=VARCHAR},
+      PREPAY_CODE = #{prepayCode,jdbcType=VARCHAR},
+      PAY_VER = #{payVer,jdbcType=VARCHAR},
+      TRANSFER_TYPE = #{transferType,jdbcType=VARCHAR},
+      TRANSFER_DIRECTION = #{transferDirection,jdbcType=VARCHAR},
+      ARRIVE_STATUS = #{arriveStatus,jdbcType=VARCHAR}
+    where CHARGE_ID = #{chargeId,jdbcType=DECIMAL}
+  </update>
+</mapper>

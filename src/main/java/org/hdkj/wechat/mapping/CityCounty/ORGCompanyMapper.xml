@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.CityCounty.ORGCompanyMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.CityCounty.ORGCompany">
+    <id column="ORG_NO" jdbcType="VARCHAR" property="orgNo" />
+    <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="P_ORG_NO" jdbcType="VARCHAR" property="pOrgNo" />
+    <result column="ORG_TYPE" jdbcType="VARCHAR" property="orgType" />
+    <result column="SORT_NO" jdbcType="DECIMAL" property="sortNo" />
+    <result column="ORG_SHORTHAND" jdbcType="VARCHAR" property="orgShorthand" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ORG_NO, ORG_NAME, P_ORG_NO, ORG_TYPE, SORT_NO, ORG_SHORTHAND
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="java.lang.String">
+    select 
+    ORG_NAME
+    from YX_O_ORG
+    where org_type='03' and ORG_NO = #{orgNo,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPorgKey" parameterType="java.lang.String" resultType="java.lang.String">
+    select 
+    ORG_NAME
+    from YX_O_ORG
+    where ORG_NO = #{PorgNo,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPorgNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+  select ORG_NO,org_name from yx_o_org where p_org_no = #{orgNo,jdbcType=VARCHAR} ORDER BY ORG_NO
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from YX_O_ORG
+    where ORG_NO = #{orgNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.CityCounty.ORGCompany">
+    insert into YX_O_ORG (ORG_NO, ORG_NAME, P_ORG_NO, 
+      ORG_TYPE, SORT_NO, ORG_SHORTHAND
+      )
+    values (#{orgNo,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{pOrgNo,jdbcType=VARCHAR}, 
+      #{orgType,jdbcType=VARCHAR}, #{sortNo,jdbcType=DECIMAL}, #{orgShorthand,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.CityCounty.ORGCompany">
+    insert into YX_O_ORG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orgNo != null">
+        ORG_NO,
+      </if>
+      <if test="orgName != null">
+        ORG_NAME,
+      </if>
+      <if test="pOrgNo != null">
+        P_ORG_NO,
+      </if>
+      <if test="orgType != null">
+        ORG_TYPE,
+      </if>
+      <if test="sortNo != null">
+        SORT_NO,
+      </if>
+      <if test="orgShorthand != null">
+        ORG_SHORTHAND,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orgNo != null">
+        #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null">
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="pOrgNo != null">
+        #{pOrgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null">
+        #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNo != null">
+        #{sortNo,jdbcType=DECIMAL},
+      </if>
+      <if test="orgShorthand != null">
+        #{orgShorthand,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.CityCounty.ORGCompany">
+    update YX_O_ORG
+    <set>
+      <if test="orgName != null">
+        ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="pOrgNo != null">
+        P_ORG_NO = #{pOrgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null">
+        ORG_TYPE = #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNo != null">
+        SORT_NO = #{sortNo,jdbcType=DECIMAL},
+      </if>
+      <if test="orgShorthand != null">
+        ORG_SHORTHAND = #{orgShorthand,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORG_NO = #{orgNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.CityCounty.ORGCompany">
+    update YX_O_ORG
+    set ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      P_ORG_NO = #{pOrgNo,jdbcType=VARCHAR},
+      ORG_TYPE = #{orgType,jdbcType=VARCHAR},
+      SORT_NO = #{sortNo,jdbcType=DECIMAL},
+      ORG_SHORTHAND = #{orgShorthand,jdbcType=VARCHAR}
+    where ORG_NO = #{orgNo,jdbcType=VARCHAR}
+  </update>
+</mapper>
