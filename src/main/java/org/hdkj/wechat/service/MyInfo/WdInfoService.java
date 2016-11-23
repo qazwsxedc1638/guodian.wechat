@@ -21,4 +21,8 @@ public class WdInfoService {
 	public WdInfo selectByPrimaryKey(String id){
 		return wdInfoDao.selectByPrimaryKey(id);
 	}
+	
+	public List<WdInfo> selectByRegionCode(String regionCode){
+		return wdInfoDao.selectByRegionCode(regionCode);
+	}
 }

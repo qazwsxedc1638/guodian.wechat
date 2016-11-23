@@ -18,4 +18,6 @@ public interface WdInfoMapper {
     int updateByPrimaryKey(WdInfo record);
     
     List<WdInfo> selectByRegionName(String regionName);
+    
+    List<WdInfo> selectByRegionCode(String regionCode);
 }

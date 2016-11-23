@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value = "/guideType")
 public class GuideTypeController {
 	
 	@Resource
 	private GuideTypeService guideTypeService;
 	
 	@ApiOperation(value = "查询服务咨询标题",notes = "根据PId查询标题")
-	@RequestMapping(value = "/guideType/{pId}",method = RequestMethod.GET)
+	@RequestMapping(value = "/{pId}",method = RequestMethod.GET)
 	public List<GuideType> selectByPId(@PathVariable String pId){
 		return guideTypeService.selectByPId(pId);
 	}

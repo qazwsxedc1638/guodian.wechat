@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value = "/wd")
 public class WdInfoController {
 	
 	@Resource
@@ -29,5 +30,11 @@ public class WdInfoController {
 	@RequestMapping(value = "/wdInfoById/{id}",method = RequestMethod.GET)
 	public WdInfo getById(@PathVariable String id){
 		return wdInfoService.selectByPrimaryKey(id);
+	}
+	
+	@ApiOperation(value = "查询网点信息",notes = "根据所在地区编码查询网点信息")
+	@RequestMapping(value = "/wdInfoByCode/{regionCode}",method = RequestMethod.GET)
+	public List<WdInfo> getByRegionCode(@PathVariable String regionCode){
+		return wdInfoService.selectByRegionCode(regionCode);
 	}
 }

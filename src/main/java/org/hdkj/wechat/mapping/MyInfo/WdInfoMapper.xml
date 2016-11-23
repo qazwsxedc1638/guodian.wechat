@@ -27,6 +27,12 @@
     DESCI, LAT, LONGS, SYS_TYPE, GEOHASHCODE, SITE_TYPE_NAME, TYPE_NO, HALL_LEVEL, LANDMARK, 
     REGION_NAME
   </sql>
+  <select id="selectByRegionCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_WD_INFO
+    where REGION_CODE = #{regionCode,jdbcType=VARCHAR}
+  </select>
    <select id="selectByRegionName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

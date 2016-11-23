@@ -1,7 +1,6 @@
 package org.hdkj.wechat.bean.MyAccount;
 
 import java.util.Date;
-import java.math.BigDecimal;
 
 public class HhInfo {
     

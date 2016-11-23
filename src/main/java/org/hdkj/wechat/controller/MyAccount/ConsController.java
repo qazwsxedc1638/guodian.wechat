@@ -14,18 +14,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value = "/cons")
 public class ConsController {
 	
 	@Resource
 	private ConsService consService;
 	
 	@ApiOperation(value = "获取用户信息", notes = "根据用户户号取用户信息")
-	@RequestMapping(value = "/cons/{consNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{consNo}", method = RequestMethod.GET)
 	public List<Cons> getByConsNo(@PathVariable String consNo){
 		return consService.selectByConsNo(consNo);
 	}
 	
-	@RequestMapping(value = "/consA/{consNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/consAnother/{consNo}", method = RequestMethod.GET)
 	@ApiOperation(value = "获取用户信息", notes = "根据用户户号取用户信息") 
 	public List<Cons> getByConsNoA(@PathVariable String consNo){
 		return consService.selectByConsNoA(consNo);
