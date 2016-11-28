@@ -35,4 +35,6 @@ public interface HhInfoMapper {
     Integer bindHh(@Param("bindstatus")String bindstatus,@Param("state")String state,@Param("wx") String wx,@Param("hh") String hh);
     
     Integer insertHh(HhInfo record);
+    
+    Integer deleteByHh(String hh);
 }

@@ -37,4 +37,16 @@ public class LeaveMsgService {
 	public List<LeaveMsg> selectHelpInfo(String wxId){
 		return leaveMsgDao.selectHelpInfo(wxId);
 	}
+	
+	public Integer updateIsRead(String wxId,String msgType){
+		return leaveMsgDao.updateIsRead(wxId, msgType);
+	}
+	
+	public Integer countByMsgType(String wxId,String msgType){
+		return leaveMsgDao.countByMsgType(wxId, msgType);
+	}
+	
+	public List<LeaveMsg> selectMsg(String wxId,String msgType){
+		return leaveMsgDao.selectMsg(wxId, msgType);
+	}
 }

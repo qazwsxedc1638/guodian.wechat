@@ -40,8 +40,18 @@ public class LeaveMsg {
     private String msgCounty;//区县
 
     private String msgCity;//城市
+    
+    private String isRead;//是否已读 0为已读 1为未读
 
-    public String getMsgId() {
+    public String getIsRead() {
+		return isRead;
+	}
+
+	public void setIsRead(String isRead) {
+		this.isRead = isRead;
+	}
+
+	public String getMsgId() {
         return msgId;
     }
 

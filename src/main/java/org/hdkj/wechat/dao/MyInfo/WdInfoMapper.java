@@ -20,4 +20,6 @@ public interface WdInfoMapper {
     List<WdInfo> selectByRegionName(String regionName);
     
     List<WdInfo> selectByRegionCode(String regionCode);
+    
+    List<WdInfo> selectByPartCode(String regionCode);
 }

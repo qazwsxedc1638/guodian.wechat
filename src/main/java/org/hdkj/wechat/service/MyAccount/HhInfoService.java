@@ -49,4 +49,8 @@ public class HhInfoService {
 	public Integer insertHh(HhInfo record){
 		return hhInfoDao.insertHh(record);
 	}
+	
+	public Integer deleteByHh(String hh){
+		return hhInfoDao.deleteByHh(hh);
+	}
 }

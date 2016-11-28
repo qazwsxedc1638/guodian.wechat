@@ -37,4 +37,10 @@ public class WdInfoController {
 	public List<WdInfo> getByRegionCode(@PathVariable String regionCode){
 		return wdInfoService.selectByRegionCode(regionCode);
 	}
+	
+	@ApiOperation(value = "查询网点信息",notes = "根据所在地区部分编码查询网点信息")
+	@RequestMapping(value = "/wdInfoByPartCode/{regionCode}",method = RequestMethod.GET)
+	public List<WdInfo> getByPartCode(@PathVariable String regionCode){
+		return wdInfoService.selectByPartCode(regionCode);
+	}
 }

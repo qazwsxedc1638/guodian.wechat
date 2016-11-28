@@ -51,9 +51,27 @@ public class LeaveMsgController {
 		return leaveMsgService.insertHelpInfo(record);
 	}
 	
-	@ApiOperation(value = "查询举报留言",notes = "根据微信id查询客户举报留言并排序")
+	@ApiOperation(value = "查询求助留言",notes = "根据微信id查询客户求助留言并排序")
 	@RequestMapping(value = "/selectHelpInfo/{wxId}",method = RequestMethod.GET)
 	public List<LeaveMsg> selectHelpInfo(@PathVariable String wxId){
 		return leaveMsgService.selectHelpInfo(wxId);
+	}
+	
+	@ApiOperation(value = "更新是否已读",notes = "根据微信id和消息类型更新是否已读")
+	@RequestMapping(value = "/updateIsRead/{wxId}/{msgType}",method = RequestMethod.PUT)
+	public Integer updateIsRead(@PathVariable String wxId,@PathVariable String msgType){
+		return leaveMsgService.updateIsRead(wxId, msgType);
+	}
+	
+	@ApiOperation(value = "统计未读消息",notes = "根据微信id和消息类型统计未读消息")
+	@RequestMapping(value = "/countByMsgType/{wxId}/{msgType}",method = RequestMethod.GET)
+	public Integer countByMsgType(@PathVariable String wxId,@PathVariable String msgType){
+		return leaveMsgService.countByMsgType(wxId, msgType);
+	}
+	
+	@ApiOperation(value = "查询消息",notes = "根据微信id和消息类型来查询消息")
+	@RequestMapping(value = "/selectMsg/{wxId}/{msgType}",method = RequestMethod.GET)
+	public List<LeaveMsg> selectMsg(@PathVariable String wxId,@PathVariable String msgType){
+		return leaveMsgService.selectMsg(wxId, msgType);
 	}
 }

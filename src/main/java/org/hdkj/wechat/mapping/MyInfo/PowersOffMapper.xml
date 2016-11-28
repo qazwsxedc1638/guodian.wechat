@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyInfo.PowersOffMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyInfo.PowersOff">
+    <result column="ORG_NO" jdbcType="VARCHAR" property="orgNo" />
+    <result column="START_TIME" jdbcType="DATE" property="startTime" />
+    <result column="STOP_DATE" jdbcType="DATE" property="stopDate" />
+    <result column="SCOPE" jdbcType="VARCHAR" property="scope" />
+    <result column="AREA_NO" jdbcType="VARCHAR" property="areaNo" />
+    <result column="POWEROFF_AREA" jdbcType="VARCHAR" property="poweroffArea" />
+  </resultMap>
+  <sql id="Base_Column_List">
+  ORG_NO,START_TIME,STOP_DATE,SCOPE,AREA_NO,POWEROFF_AREA
+  </sql>
+  <select id="selectPowersOffA" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from V_TEST_REGION
+    where ORG_NO = #{orgNo,jdbcType=VARCHAR}
+    and START_TIME between to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd hh24:mi:ss') and to_date(#{stopDate,jdbcType=VARCHAR}, 'yyyy-mm-dd hh24:mi:ss')
+    order by START_TIME
+  </select>
+  <select id="selectPowersOff" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from V_TEST_REGION
+    where ORG_NO = #{orgNo,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyInfo.PowersOff">
+    insert into V_TEST_REGION (ORG_NO, START_TIME, STOP_DATE, 
+      SCOPE, AREA_NO, POWEROFF_AREA
+      )
+    values (#{orgNo,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE}, #{stopDate,jdbcType=DATE}, 
+      #{scope,jdbcType=VARCHAR}, #{areaNo,jdbcType=VARCHAR}, #{poweroffArea,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyInfo.PowersOff">
+    insert into V_TEST_REGION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orgNo != null">
+        ORG_NO,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="stopDate != null">
+        STOP_DATE,
+      </if>
+      <if test="scope != null">
+        SCOPE,
+      </if>
+      <if test="areaNo != null">
+        AREA_NO,
+      </if>
+      <if test="poweroffArea != null">
+        POWEROFF_AREA,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orgNo != null">
+        #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="stopDate != null">
+        #{stopDate,jdbcType=DATE},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="areaNo != null">
+        #{areaNo,jdbcType=VARCHAR},
+      </if>
+      <if test="poweroffArea != null">
+        #{poweroffArea,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

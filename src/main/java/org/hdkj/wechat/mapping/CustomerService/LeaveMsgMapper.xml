@@ -21,12 +21,37 @@
     <result column="WX_HH" jdbcType="VARCHAR" property="wxHh" />
     <result column="MSG_COUNTY" jdbcType="VARCHAR" property="msgCounty" />
     <result column="MSG_CITY" jdbcType="VARCHAR" property="msgCity" />
+    <result column="ISREAD" jdbcType="VARCHAR" property="isRead"/>
   </resultMap>
   <sql id="Base_Column_List">
     MSG_ID, WX_ID, CONTENT, MSG_TIME, REPLY_USER_LV1, REPLY_TIME_LV1, REPLY_STATE, REPLY_USER_LV2, 
     REPLY_USER_LV1_CONTENT, REPLY_USER_LV2_CONTENT, REPLY_TIME_LV2, MSG_TYPE, WORK_NO, 
-    ISLOCK, LOCK_USER_ID, WX_PHONE, WX_HH, MSG_COUNTY, MSG_CITY
+    ISLOCK, LOCK_USER_ID, WX_PHONE, WX_HH, MSG_COUNTY, MSG_CITY, ISREAD
   </sql>
+  <select id="selectMsg" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_MSG
+    where WX_ID = #{wxId,jdbcType=VARCHAR}
+    and MSG_TYPE = #{msgType,jdbcType=VARCHAR}
+    order by MSG_TIME
+  </select>
+  <select id="countByMsgType" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select 
+    count(*)
+    from wx_msg
+    where WX_ID = #{wxId,jdbcType=VARCHAR}
+    and MSG_TYPE = #{msgType,jdbcType=VARCHAR}
+    and ISREAD = '1'
+  </select>
+  <update id="updateIsRead" parameterType="java.lang.String">
+    update
+    wx_msg
+    set
+    ISREAD = '0'
+    where WX_ID = #{wxId,jdbcType=VARCHAR}
+    and MSG_TYPE = #{msgType,jdbcType=VARCHAR}
+  </update>
    <insert id="insertHelpInfo" parameterType="org.hdkj.wechat.bean.CustomerService.LeaveMsg">
     insert into WX_MSG (MSG_ID, WX_ID, CONTENT, 
       MSG_TIME, REPLY_USER_LV1, REPLY_TIME_LV1, 
@@ -34,14 +59,14 @@
       REPLY_USER_LV2_CONTENT, REPLY_TIME_LV2, MSG_TYPE, 
       WORK_NO, ISLOCK, LOCK_USER_ID, 
       WX_PHONE, WX_HH, MSG_COUNTY, 
-      MSG_CITY)
+      MSG_CITY,ISREAD)
     values (#{msgId,jdbcType=VARCHAR}, #{wxId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       sysdate, #{replyUserLv1,jdbcType=VARCHAR}, #{replyTimeLv1,jdbcType=DATE}, 
       #{replyState,jdbcType=VARCHAR}, #{replyUserLv2,jdbcType=VARCHAR}, #{replyUserLv1Content,jdbcType=VARCHAR}, 
       #{replyUserLv2Content,jdbcType=VARCHAR}, sysdate+1/24/60/60, &apos;01&apos;, 
       #{workNo,jdbcType=VARCHAR}, #{islock,jdbcType=VARCHAR}, #{lockUserId,jdbcType=VARCHAR}, 
       #{wxPhone,jdbcType=VARCHAR}, #{wxHh,jdbcType=VARCHAR}, #{msgCounty,jdbcType=VARCHAR}, 
-      #{msgCity,jdbcType=VARCHAR})
+      #{msgCity,jdbcType=VARCHAR},&apos;1&apos;)
   </insert>
   <select id="selectHelpInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -66,21 +91,21 @@
       REPLY_USER_LV2_CONTENT, REPLY_TIME_LV2, MSG_TYPE, 
       WORK_NO, ISLOCK, LOCK_USER_ID, 
       WX_PHONE, WX_HH, MSG_COUNTY, 
-      MSG_CITY)
+      MSG_CITY,ISREAD)
     values (#{msgId,jdbcType=VARCHAR}, #{wxId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       sysdate, #{replyUserLv1,jdbcType=VARCHAR}, #{replyTimeLv1,jdbcType=DATE}, 
       #{replyState,jdbcType=VARCHAR}, #{replyUserLv2,jdbcType=VARCHAR}, #{replyUserLv1Content,jdbcType=VARCHAR}, 
       #{replyUserLv2Content,jdbcType=VARCHAR}, sysdate+1/24/60/60, &apos;07&apos;, 
       #{workNo,jdbcType=VARCHAR}, #{islock,jdbcType=VARCHAR}, #{lockUserId,jdbcType=VARCHAR}, 
       #{wxPhone,jdbcType=VARCHAR}, #{wxHh,jdbcType=VARCHAR}, #{msgCounty,jdbcType=VARCHAR}, 
-      #{msgCity,jdbcType=VARCHAR})
+      #{msgCity,jdbcType=VARCHAR},&apos;1&apos;)
   </insert>
   <select id="selectLeaveMsg" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from WX_MSG
     where WX_ID = #{wxId,jdbcType=VARCHAR}
-    and MSG_TYPE = '03'
+    and MSG_TYPE in ('02','03','05','06')
     order by MSG_TIME
   </select>
   <insert id="insertLeaveMsg" parameterType="org.hdkj.wechat.bean.CustomerService.LeaveMsg">
@@ -90,14 +115,14 @@
       REPLY_USER_LV2_CONTENT, REPLY_TIME_LV2, MSG_TYPE, 
       WORK_NO, ISLOCK, LOCK_USER_ID, 
       WX_PHONE, WX_HH, MSG_COUNTY, 
-      MSG_CITY)
+      MSG_CITY,ISREAD)
     values (#{msgId,jdbcType=VARCHAR}, #{wxId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       sysdate, #{replyUserLv1,jdbcType=VARCHAR}, #{replyTimeLv1,jdbcType=DATE}, 
       #{replyState,jdbcType=VARCHAR}, #{replyUserLv2,jdbcType=VARCHAR}, #{replyUserLv1Content,jdbcType=VARCHAR}, 
       #{replyUserLv2Content,jdbcType=VARCHAR}, sysdate+1/24/60/60, &apos;03&apos;, 
       #{workNo,jdbcType=VARCHAR}, #{islock,jdbcType=VARCHAR}, #{lockUserId,jdbcType=VARCHAR}, 
       #{wxPhone,jdbcType=VARCHAR}, #{wxHh,jdbcType=VARCHAR}, #{msgCounty,jdbcType=VARCHAR}, 
-      #{msgCity,jdbcType=VARCHAR})
+      #{msgCity,jdbcType=VARCHAR},&apos;1&apos;)
   </insert>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -116,14 +141,14 @@
       REPLY_USER_LV2_CONTENT, REPLY_TIME_LV2, MSG_TYPE, 
       WORK_NO, ISLOCK, LOCK_USER_ID, 
       WX_PHONE, WX_HH, MSG_COUNTY, 
-      MSG_CITY)
+      MSG_CITY,ISREAD)
     values (#{msgId,jdbcType=VARCHAR}, #{wxId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       #{msgTime,jdbcType=DATE}, #{replyUserLv1,jdbcType=VARCHAR}, #{replyTimeLv1,jdbcType=DATE}, 
       #{replyState,jdbcType=VARCHAR}, #{replyUserLv2,jdbcType=VARCHAR}, #{replyUserLv1Content,jdbcType=VARCHAR}, 
       #{replyUserLv2Content,jdbcType=VARCHAR}, #{replyTimeLv2,jdbcType=DATE}, #{msgType,jdbcType=VARCHAR}, 
       #{workNo,jdbcType=VARCHAR}, #{islock,jdbcType=VARCHAR}, #{lockUserId,jdbcType=VARCHAR}, 
       #{wxPhone,jdbcType=VARCHAR}, #{wxHh,jdbcType=VARCHAR}, #{msgCounty,jdbcType=VARCHAR}, 
-      #{msgCity,jdbcType=VARCHAR})
+      #{msgCity,jdbcType=VARCHAR},&apos;1&apos;)
   </insert>
   <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.CustomerService.LeaveMsg">
     insert into WX_MSG
@@ -185,6 +210,9 @@
       <if test="msgCity != null">
         MSG_CITY,
       </if>
+      <if test="isRead != null">
+        ISREAD,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="msgId != null">
@@ -243,6 +271,9 @@
       </if>
       <if test="msgCity != null">
         #{msgCity,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -303,6 +334,9 @@
       <if test="msgCity != null">
         MSG_CITY = #{msgCity,jdbcType=VARCHAR},
       </if>
+      <if test="isRead != null">
+        ISREAD = #{isRead,jdbcType=VARCHAR},
+      </if>
     </set>
     where MSG_ID = #{msgId,jdbcType=VARCHAR}
   </update>
@@ -326,6 +360,7 @@
       WX_HH = #{wxHh,jdbcType=VARCHAR},
       MSG_COUNTY = #{msgCounty,jdbcType=VARCHAR},
       MSG_CITY = #{msgCity,jdbcType=VARCHAR}
+      ISREAD = #{isRead,jdbcType=VARCHAR}
     where MSG_ID = #{msgId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hdkj.wechat.dao.MyAccount.RecordMaintainMapper">
+  <resultMap id="BaseResultMap" type="org.hdkj.wechat.bean.MyAccount.RecordMaintain">
+    <id column="CONS_NO" jdbcType="VARCHAR" property="consNo" />
+    <result column="CONS_NAME" jdbcType="VARCHAR" property="consName" />
+    <result column="CONS_ADDR" jdbcType="VARCHAR" property="consAddr" />
+    <result column="CONS_DATE" jdbcType="VARCHAR" property="consDate" />
+    <result column="ID_NO" jdbcType="VARCHAR" property="idNo" />
+    <result column="PHONE_NO" jdbcType="VARCHAR" property="phoneNo" />
+    <result column="CONS_TYPE" jdbcType="VARCHAR" property="consType" />
+    <result column="CONS_PWS" jdbcType="VARCHAR" property="consPws" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CONS_NO, CONS_NAME, CONS_ADDR, CONS_DATE, ID_NO, PHONE_NO, CONS_TYPE, CONS_PWS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WX_CONS_INFO
+    where CONS_NO = #{consNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from WX_CONS_INFO
+    where CONS_NO = #{consNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.hdkj.wechat.bean.MyAccount.RecordMaintain">
+    insert into WX_CONS_INFO (CONS_NO, CONS_NAME, CONS_ADDR, 
+      CONS_DATE, ID_NO, PHONE_NO, 
+      CONS_TYPE, CONS_PWS)
+    values (#{consNo,jdbcType=VARCHAR}, #{consName,jdbcType=VARCHAR}, #{consAddr,jdbcType=VARCHAR}, 
+      #{consDate,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR}, #{phoneNo,jdbcType=VARCHAR}, 
+      #{consType,jdbcType=VARCHAR}, #{consPws,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.hdkj.wechat.bean.MyAccount.RecordMaintain">
+    insert into WX_CONS_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="consNo != null">
+        CONS_NO,
+      </if>
+      <if test="consName != null">
+        CONS_NAME,
+      </if>
+      <if test="consAddr != null">
+        CONS_ADDR,
+      </if>
+      <if test="consDate != null">
+        CONS_DATE,
+      </if>
+      <if test="idNo != null">
+        ID_NO,
+      </if>
+      <if test="phoneNo != null">
+        PHONE_NO,
+      </if>
+      <if test="consType != null">
+        CONS_TYPE,
+      </if>
+      <if test="consPws != null">
+        CONS_PWS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="consNo != null">
+        #{consNo,jdbcType=VARCHAR},
+      </if>
+      <if test="consName != null">
+        #{consName,jdbcType=VARCHAR},
+      </if>
+      <if test="consAddr != null">
+        #{consAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="consDate != null">
+        #{consDate,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null">
+        #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="consType != null">
+        #{consType,jdbcType=VARCHAR},
+      </if>
+      <if test="consPws != null">
+        #{consPws,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.hdkj.wechat.bean.MyAccount.RecordMaintain">
+    update WX_CONS_INFO
+    <set>
+      <if test="consName != null">
+        CONS_NAME = #{consName,jdbcType=VARCHAR},
+      </if>
+      <if test="consAddr != null">
+        CONS_ADDR = #{consAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="consDate != null">
+        CONS_DATE = #{consDate,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        ID_NO = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null">
+        PHONE_NO = #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="consType != null">
+        CONS_TYPE = #{consType,jdbcType=VARCHAR},
+      </if>
+      <if test="consPws != null">
+        CONS_PWS = #{consPws,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CONS_NO = #{consNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.hdkj.wechat.bean.MyAccount.RecordMaintain">
+    update WX_CONS_INFO
+    set CONS_NAME = #{consName,jdbcType=VARCHAR},
+      CONS_ADDR = #{consAddr,jdbcType=VARCHAR},
+      CONS_DATE = #{consDate,jdbcType=VARCHAR},
+      ID_NO = #{idNo,jdbcType=VARCHAR},
+      PHONE_NO = #{phoneNo,jdbcType=VARCHAR},
+      CONS_TYPE = #{consType,jdbcType=VARCHAR},
+      CONS_PWS = #{consPws,jdbcType=VARCHAR}
+    where CONS_NO = #{consNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

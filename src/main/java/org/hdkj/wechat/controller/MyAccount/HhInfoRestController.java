@@ -81,4 +81,10 @@ public class HhInfoRestController {
 	public Integer insertHh(@RequestBody HhInfo hhInfo){
 		return hhInfoService.insertHh(hhInfo);
 	}
+	
+	@ApiOperation(value = "删除用户",notes = "根据用户户号删除用户")
+	@RequestMapping(value = "/deleteHh/{hh}",method = RequestMethod.DELETE)
+	public Integer deleteByHh(@PathVariable String hh){
+		return hhInfoService.deleteByHh(hh);
+	}
 }

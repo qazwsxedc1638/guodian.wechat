@@ -25,4 +25,9 @@ public class WdInfoService {
 	public List<WdInfo> selectByRegionCode(String regionCode){
 		return wdInfoDao.selectByRegionCode(regionCode);
 	}
+	
+	public List<WdInfo> selectByPartCode(String regionCode){
+		regionCode = regionCode.substring(0, 4);
+		return wdInfoDao.selectByPartCode(regionCode);
+	}
 }

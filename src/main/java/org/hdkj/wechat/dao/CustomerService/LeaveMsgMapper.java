@@ -2,6 +2,7 @@ package org.hdkj.wechat.dao.CustomerService;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.hdkj.wechat.bean.CustomerService.LeaveMsg;
 
 public interface LeaveMsgMapper {
@@ -28,4 +29,10 @@ public interface LeaveMsgMapper {
     Integer insertHelpInfo(LeaveMsg record);
     
     List<LeaveMsg> selectHelpInfo(String wxId);
+    
+    Integer updateIsRead(@Param("wxId") String wxId,@Param("msgType") String msgType);
+    
+    Integer countByMsgType(@Param("wxId") String wxId,@Param("msgType") String msgType);
+    
+    List<LeaveMsg> selectMsg(@Param("wxId") String wxId,@Param("msgType") String msgType);
 }
